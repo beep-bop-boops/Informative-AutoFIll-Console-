@@ -11,12 +11,27 @@ using namespace std;
 
 int main()
 {
- 
- string a;
-  cout << a;
- cin >> a;
- cout << a;
 
-system("pause");
+srand (time(NULL));
+int a;
+
+
+
+HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+for(int p=0; p<10; p++)
+{
+a = rand() % 3 +1;
+cout << a;
+if(a==0){SetConsoleTextAttribute(h, FOREGROUND_BLUE);}
+else if(a==1){SetConsoleTextAttribute(h, FOREGROUND_GREEN);}
+else if(a==2){SetConsoleTextAttribute(h, FOREGROUND_BLUE);}
+
+
+}
+
+
+
+
     return 0;
 }
