@@ -146,16 +146,8 @@ void cmd2in()
 cout << "IAC:\\" << cmd1 << "\\";
 getline(cin, cmd2);
 
-
-
 }
 
-<<<<<<< HEAD
 
 
 
-=======
-}
-
-//nigger
->>>>>>> ac9c4fcfa89be9efffcf068a4a31145f667313fe
