@@ -5,25 +5,22 @@
 #include <cstdlib>
 #include <cstring>
 #include <time.h>
-
+#define _WIN32_WINNT 0*0502
 using namespace std;
 
 string TxtInput;
-
 bool cmdfound = false;
-string LibArray[4][4][4];
-int usLoc1, usLoc2, usLoc3;
+string LibArray[10][10][10][10][10];
+int arrayIndexAmount = 10;
+int LocAmount = 5;
+int usLoc[5];
+bool usLocB[5];
 
-int TxtInputArSize = 4;
 
-int TxtInputArLoc, cmd2ArLoc, cmd3ArLoc;
 
-bool TxtInputstore = false;
 
-string cmd2array[2] = {"Subidirectory", "More Subidirectory"};
-
-void input();
-void settingvaribles();
+void printdir();
+void initializeDictionary();
 void TxtInputin();
 void TxtInputout();
 void cmd2in();
@@ -33,15 +30,19 @@ void loadanimin();
 void loadanimout();
 void Subidirectory();
 void randcolour();
+void remove_scrollbar();
+
+
 int main()
-
-
 {
-    settingvaribles();
-    usLoc1 = 0;
-    usLoc2 = 0;
-    usLoc3 = 0;
-
+    for(int x=0; x<LocAmount ; x++)
+    {
+        usLoc[x] = 0;
+        cout << usLoc[x];
+        
+    }
+    srand (time(NULL));
+    initializeDictionary();
     cout << "------------------------------------" << endl;
     cout << "|               _        _______   |" << endl;
     cout << "|      |       / \\      |          |" << endl;
@@ -55,104 +56,93 @@ int main()
     cout << "|          Welcome To IAC          |" << endl;
     cout << "------------------------------------" << endl;
     cout << "|   Enter help in any directory to |" << endl;
-    cout << "|   virw information on how to use |" << endl;
+    cout << "|   view information on how to use |" << endl;
     cout << "|                 IAC              |" << endl;
     cout << "------------------------------------" << endl;
-
-
-    srand (time(NULL));
-    input();
+    /*
+    HWND console = GetConsoleWindow();
+    RECT r;
+    GetWindowRect(console, &r); //stores the console's current dimensions
+    MoveWindow(console, r.left, r.top, 338, 900, TRUE); // 800 width, 100 height.left, rect.bottom-rect.top, rect.right-rect.left, TRUE);  
+    */
+    
+    printdir();
 
     system("pause");
 
     return 0;
 }
 
-void input()
+void printdir()
 {
-
     cout << "IAC:\\";
-
-    if (usLoc1 > 0 && usLoc2 == 0 && usLoc3 == 0)
+    for(int a = 1; a<LocAmount; a++) 
     {
-        cout << LibArray[usLoc1][0][0] << "\\";
+        if(usLoc[a] > 0)
+        {
+            usLocB[a] = true;
+        }
+        else 
+        {
+            usLocB[a] = false;
+        }
     }
-
-    else if (usLoc2 > 0 && usLoc1 > 0 && usLoc3 == 0)
-    {
-        cout << "\\";
-        cout << LibArray[usLoc1][0][0] << "\\";
-        cout << LibArray[usLoc1][usLoc2][0] << "\\";
-    }
-    else if (usLoc3 > 0 && usLoc1 > 0 && usLoc2 > 0)
-    {
-        cout << "\\";
-        cout << LibArray[usLoc1][0][0] << "\\";
-        cout << LibArray[usLoc1][usLoc2][0] << "\\";
-        cout << LibArray[usLoc1][usLoc2][usLoc3] << "\\";
-    }
-
-    else
-    {
-    }
-
-    TxtInputin();
-}
-
+   if(usLocB[1] == true){ cout << LibArray[usLoc[1]][0][0][0][0] << "\\";}
+   if(usLocB[2] == true){ cout << LibArray[usLoc[1]][usLoc[2]][0][0][0] << "\\";}
+   if(usLocB[3] == true){ cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][0][0] << "\\";}
+   if(usLocB[4] == true){ cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][0] << "\\";}
+   if(usLocB[5] == true){ cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] << "\\";}
+    
+    
+   TxtInputin();
+} 
 void TxtInputin()
 {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-
     cmdfound = false;
 
     getline(cin, TxtInput);
-    // TxtInput.erase( TxtInput.end()-3); // erase 3 chars from end of string
-    // TxtInput.append ("fuck");  // add to the end of the string
 
-    if (usLoc1 == 0)
+
+
+
+    for (int p=1;p<5;p++)
     {
 
-        for (int a = 0; a < 5; a++)
-        {
+        if (usLocB[p] == false)
+         {
+             
+             int r;
+            
+             
+              for (r = 1; r<arrayIndexAmount; r++)
+             {
+                 usLoc[p] = r;
+                 if (TxtInput == LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]]);
+                 {
+                     cout << r;
+                    usLoc[p] = r; 
+                    r = arrayIndexAmount;
+                    p = 5;
+                    
+                    
+                   
+                // usLoc[p] = a;
+                 //cmdfound = true;
+                 //cout << a << endl;
+                 //cout << usLoc[p];
+                 
 
-            if (TxtInput == LibArray[a][0][0])
-            {
+                 }
+        
+             }
+             
+         }
 
-                usLoc1 = a;
-
-                cmdfound = true;
-            }
-        }
-    }
-    else if (usLoc2 == 0)
-    {
-        for (int a = 0; a < 5; a++)
-        {
-
-            if (TxtInput == LibArray[usLoc1][a][0])
-            {
-
-                usLoc2 = a;
-
-                cmdfound = true;
-            }
-        }
-    }
-    else if (usLoc3 == 0)
-    {
-        for (int a = 0; a < 5; a++)
-        {
-
-            if (TxtInput == LibArray[usLoc1][usLoc2][a])
-            {
-
-                usLoc2 = a;
-
-                cmdfound = true;
-            }
-        }
     }
 
+    
+    
     if (cmdfound)
     {
 
@@ -160,10 +150,10 @@ void TxtInputin()
         cout << "Accesed to " << TxtInput << " directory granted";
         loadanimout();
 
-        opendi();
-        input();
+        //opendi();
+        printdir();
     }
-
+/*
     else if (TxtInput == "exit")
     {
 
@@ -221,19 +211,30 @@ void TxtInputin()
         cout << "| exit -- will exit and subdirectory|" << endl;
         cout << "|         you are currently in      |" << endl;
         cout << "------------------------------------" << endl;
-        cout << "| files listed in the subd search.. |" << endl;
+        cout << "| Files listed in the subd search   |" << endl;
+        cout << "------------------------------------" << endl;
         cout << "| .fo  = folder                     |" << endl;
-        cout << "| .inf = information text           |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| .in  = informative text           |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| .tu  = is a step by step tutorial |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| .bu  = is a bu is a bug found in a|" << endl;
+        cout << "|        real world programe/website|" << endl;
+        cout << "|        .bu files will end with a  |" << endl;
+        cout << "|         number representing the   |" << endl;
+        cout << "|         severity of the bug.      |" << endl;
         cout << "------------------------------------" << endl;
 
         input();
     }
+    */
     else
     {
         SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
         cout << "Command Not Found" << endl;
         SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-        input();
+        printdir();
     }
 }
 
@@ -250,30 +251,27 @@ void opendi()
 */
 }
 
-void settingvaribles()
+void initializeDictionary()
 {
+//IAC:/
+    LibArray[0][0][0][0][0] = "";
+    LibArray[1][0][0][0][0] = "windows.fo";
+    LibArray[2][0][0][0][0] = "linux.fo";
+    LibArray[3][0][0][0][0] = "macos.fo";
+    LibArray[4][0][0][0][0] = "andriod.fo";
+//windows
+    LibArray[1][1][0][0][0] = "terminal.fo";
+    LibArray[1][2][0][0][0] = "applications.fo";
+    LibArray[1][3][0][0][0] = "userstuff.fo";
 
-    LibArray[0][0][0] = "";
-    LibArray[1][0][0] = "windows.fo";
-    LibArray[2][0][0] = "linux.fo";
-    LibArray[3][0][0] = "macos.fo";
-    LibArray[4][0][0] = "andriod.fo";
 
-    LibArray[1][1][0] = "terminal.fo";
-    LibArray[1][2][0] = "applications.fo";
-    LibArray[1][3][0] = "userstuff.fo";
 
-    LibArray[2][1][0] = "terminal.fo";
-    LibArray[2][2][0] = "applications.fo";
-    LibArray[2][3][0] = "userstuff.fo";
 
-    LibArray[3][1][0] = "terminal.fo";
-    LibArray[3][2][0] = "applications.fo";
-    LibArray[3][3][0] = "userstuff.fo";
 }
 
 void Subidirectory()
 {
+    /*
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     if (usLoc1 == 0)
     {
@@ -335,6 +333,7 @@ void Subidirectory()
         SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
         cout << endl;
     }
+    */
 }
 
 void loadanimin()
@@ -386,3 +385,18 @@ else if(a==13){SetConsoleTextAttribute(h, FOREGROUND_INTENSITY | FOREGROUND_RED 
 else if(a==14){SetConsoleTextAttribute(h, FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);}
 else {SetConsoleTextAttribute(h, FOREGROUND_GREEN);}
 }
+
+
+void remove_scrollbar()
+{
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO info;
+    GetConsoleScreenBufferInfo(handle, &info);
+    COORD new_size = 
+    {
+        info.srWindow.Right - info.srWindow.Left + 1,
+        info.srWindow.Bottom - info.srWindow.Top + 1
+    };
+    SetConsoleScreenBufferSize(handle, new_size);
+}
+ 
