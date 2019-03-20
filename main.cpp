@@ -15,6 +15,8 @@ int arrayIndexAmount = 10;
 int LocAmount = 5;
 int usLoc[5];
 bool usLocB[5];
+bool exitDir = false;
+int Loc[5];
 
 
 
@@ -75,65 +77,168 @@ int main()
 
 void printdir()
 {
+    cmdfound = false;   
+    exitDir = false;
+
     cout << "IAC:\\";
-    for(int a = 1; a<LocAmount; a++) 
+
+    for(int n = 1; n<LocAmount; n++) 
     {
-        if(usLoc[a] > 0)
+        if(usLoc[n] > 0)
         {
-            usLocB[a] = true;
+            usLocB[n] = true;
         }
         else 
         {
-            usLocB[a] = false;
+            usLocB[n] = false;
         }
     }
-   if(usLocB[1] == true){ cout << LibArray[usLoc[1]][0][0][0][0] << "\\";}
-   if(usLocB[2] == true){ cout << LibArray[usLoc[1]][usLoc[2]][0][0][0] << "\\";}
+
+    for(int x=0; x<LocAmount ; x++)
+    {
+        
+        cout << usLoc[x];
+        
+    }
+   
+   if(usLocB[1] == true){ cout << LibArray[usLoc[1]][0][0][0][0] << "\\" ;}
+   if(usLocB[2] == true){ cout <<  LibArray[usLoc[1]][usLoc[2]][0][0][0] << "\\";}
    if(usLocB[3] == true){ cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][0][0] << "\\";}
    if(usLocB[4] == true){ cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][0] << "\\";}
    if(usLocB[5] == true){ cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] << "\\";}
+
+
+   
+
     
     
    TxtInputin();
+
+
 } 
 void TxtInputin()
 {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     cmdfound = false;
+    
+
 
     getline(cin, TxtInput);
 
 
+//cout << endl << exitDir << endl;
+//cout << TxtInput << endl;
 
 
+
+ if (TxtInput == "exit")
+    {
+       
+        
+        for(int a= 1; a<LocAmount; a++) 
+    {
+        
+        if(exitDir == false)
+        {
+       // cout << endl << "a = " << a << endl;
+        //cout << "locamount  =" << LocAmount ;
+        
+       // cout << "exit is fuck";
+        if(usLoc[a] > 0)
+
+        //cout << "usloc = " << usLoc[a] << endl;
+        {
+
+           // cout << "if main accepted" << endl;
+
+            int d;
+            d = a + 1;
+
+            //cout << "usloc d =" << usLoc[d] << endl;
+
+           // cout << "d = " << d;  
+            if(usLoc[d] == 0)
+            {
+                usLoc[a] = 0;
+               // cout << "loc =" << a << "has been butt fucked";
+                //cout << usLoc[1];
+
+                exitDir = true;
+              
+                
+            }
+          
+            
+        }
+        }
+
+       
+    }
+   
+    printdir();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+else {
     for (int p=1;p<5;p++)
     {
+     //   cout << "its has been run" << endl;
 
+
+
+
+        
         if (usLocB[p] == false)
+cout << "we are in this bitch ";
+        
          {
              
              int r;
-            
-             
+             //cout <<  LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];   
+                                
               for (r = 1; r<arrayIndexAmount; r++)
              {
-                 usLoc[p] = r;
-                 if (TxtInput == LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]]);
-                 {
-                     cout << r;
-                    usLoc[p] = r; 
-                    r = arrayIndexAmount;
-                    p = 5;
-                    
-                    
-                   
-                // usLoc[p] = a;
-                 //cmdfound = true;
-                 //cout << a << endl;
-                 //cout << usLoc[p];
+                 //fucked used to be Usloc[p] = r
                  
+                 Loc[p] = r ;
+                 if(usLoc[p] > 0) 
+                 {
 
                  }
+                 
+                
+                 if(TxtInput == LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]])
+                 {
+                    
+                    usLoc[p] = r; 
+                    r = arrayIndexAmount + 1;
+                    p = 5;
+                    cmdfound = true;       
+                    
+                                          
+                 }
+                 cout << "ntohing fouydn";
+              
+               
+                 
+                 
         
              }
              
@@ -141,7 +246,10 @@ void TxtInputin()
 
     }
 
+
+}
     
+     
     
     if (cmdfound)
     {
@@ -151,12 +259,26 @@ void TxtInputin()
         loadanimout();
 
         //opendi();
-        printdir();
-    }
-/*
-    else if (TxtInput == "exit")
-    {
 
+    
+      
+        printdir();
+ 
+
+
+
+    }
+     
+    
+    
+
+
+
+    
+
+    else
+    
+/*
         if (usLoc1 > 0 && usLoc2 == 0 && usLoc3 == 0)
         {
             usLoc1 = 0;
@@ -166,23 +288,7 @@ void TxtInputin()
             input();
         }
 
-        else if (usLoc1 > 0 && usLoc2 > 0 && usLoc3 == 0)
-        {
-            usLoc2 = 0;
-            loadanimin();
-            cout << LibArray[usLoc1][usLoc2][usLoc3] << " directory left";
-            loadanimout();
-            input();
-        }
-        else if (usLoc1 > 0 && usLoc2 > 0 && usLoc3 > 0)
-        {
-            usLoc3 = 0;
-            loadanimin();
-            cout << LibArray[usLoc1][usLoc2][usLoc3] << " directory left";
-            loadanimout();
-            input();
-        }
-
+       
         else
         {
              SetConsoleTextAttribute(h, FOREGROUND_RED );
@@ -229,7 +335,8 @@ void TxtInputin()
         input();
     }
     */
-    else
+    
+   
     {
         SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
         cout << "Command Not Found" << endl;
@@ -260,9 +367,14 @@ void initializeDictionary()
     LibArray[3][0][0][0][0] = "macos.fo";
     LibArray[4][0][0][0][0] = "andriod.fo";
 //windows
+
     LibArray[1][1][0][0][0] = "terminal.fo";
     LibArray[1][2][0][0][0] = "applications.fo";
     LibArray[1][3][0][0][0] = "userstuff.fo";
+
+    LibArray[2][1][0][0][0] = "lterminal.fo";
+    LibArray[2][2][0][0][0] = "lapplications.fo";
+    LibArray[2][3][0][0][0] = "luserstuff.fo";
 
 
 
