@@ -61,6 +61,13 @@ int main()
     cout << "|   view information on how to use |" << endl;
     cout << "|                 IAC              |" << endl;
     cout << "------------------------------------" << endl;
+
+
+    // iac 3.40 = iac 3= Libarray size 40 = usloc size.  dd
+    //finding location . can tpye loc3.4.5 at any time to go into locus[1]=3 usloc[2]=4...
+    // cant find current location loc = 4.5.6.7
+
+
     /*
     HWND console = GetConsoleWindow();
     RECT r;
@@ -82,7 +89,25 @@ void printdir()
 
     cout << "IAC:\\";
 
-    for(int n = 1; n<LocAmount; n++) 
+cout << endl << "print 1st printdir" << endl;
+     for(int x=0; x<5 ; x++)
+    {
+        
+        cout << "usLocB[" << x << "] = " << usLocB[x] << endl;
+        
+    }
+
+    for(int x=0; x<5 ; x++)
+    {
+        
+        cout << "usLoc[" << x << "] = " << usLoc[x] << endl;
+        
+    }
+
+    
+ 
+
+    for(int n = 0; n<LocAmount; n++) 
     {
         if(usLoc[n] > 0)
         {
@@ -94,12 +119,26 @@ void printdir()
         }
     }
 
-    for(int x=0; x<LocAmount ; x++)
+
+
+
+cout << endl << "print 2nd after printdir" << endl;
+
+    for(int x=0; x<5 ; x++)
     {
         
-        cout << usLoc[x];
+        cout << "usLocB[" << x << "] = " << usLocB[x] << endl;
         
     }
+
+    for(int x=0; x<5 ; x++)
+    {
+        
+        cout << "usLoc[" << x << "] = " << usLoc[x] << endl;
+        
+    }
+
+    
    
    if(usLocB[1] == true){ cout << LibArray[usLoc[1]][0][0][0][0] << "\\" ;}
    if(usLocB[2] == true){ cout <<  LibArray[usLoc[1]][usLoc[2]][0][0][0] << "\\";}
@@ -199,16 +238,17 @@ void TxtInputin()
 else {
     for (int p=1;p<5;p++)
     {
+        cout << "loop frunnfing = " << p << endl; 
+        cout << usLocB[1];
      //   cout << "its has been run" << endl;
 
 
 
 
-        
+        cout << "searching [" << p << "]" << endl;
         if (usLocB[p] == false)
-cout << "we are in this bitch ";
-        
          {
+             
              
              int r;
              //cout <<  LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];   
@@ -217,12 +257,11 @@ cout << "we are in this bitch ";
              {
                  //fucked used to be Usloc[p] = r
                  
-                 Loc[p] = r ;
-                 if(usLoc[p] > 0) 
-                 {
-
-                 }
-                 
+                  //
+                    uLoc[p] = r;
+                    cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] << endl;
+                    cout << "text = " << TxtInput <<  endl ;
+                
                 
                  if(TxtInput == LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]])
                  {
@@ -231,10 +270,19 @@ cout << "we are in this bitch ";
                     r = arrayIndexAmount + 1;
                     p = 5;
                     cmdfound = true;       
-                    
-                                          
+                    cout << endl << "fouddddddddddddddddddddddddddddddddddddddddddnd" << endl;
+                       
                  }
-                 cout << "ntohing fouydn";
+                 else
+                 {
+                      
+        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+        cout << "Command Not Found" << endl;
+        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        printdir();
+    
+                 }
+                 
               
                
                  
@@ -263,9 +311,6 @@ cout << "we are in this bitch ";
     
       
         printdir();
- 
-
-
 
     }
      
@@ -276,7 +321,7 @@ cout << "we are in this bitch ";
 
     
 
-    else
+    
     
 /*
         if (usLoc1 > 0 && usLoc2 == 0 && usLoc3 == 0)
@@ -337,12 +382,7 @@ cout << "we are in this bitch ";
     */
     
    
-    {
-        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-        cout << "Command Not Found" << endl;
-        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-        printdir();
-    }
+   
 }
 
 void opendi()
