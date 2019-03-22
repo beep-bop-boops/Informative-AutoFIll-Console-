@@ -11,7 +11,7 @@ using namespace std;
 string TxtInput;
 bool cmdfound = false;
 string LibArray[10][10][10][10][10];
-int arrayIndexAmount = 10;
+int arrayIndexAmount = 5;
 int LocAmount = 5;
 int usLoc[5];
 bool usLocB[5];
@@ -89,6 +89,28 @@ void printdir()
 
     cout << "IAC:\\";
 
+      if(usLocB[1] == true)
+                    {
+                         cout << endl << "0 is trueee" << endl;
+                        usLocB[0]= true;
+                    }
+                    else
+                    {
+                        usLocB[0]= false;
+                    }
+                    
+
+                    if(usLoc[1] > 0)
+                    {
+                         
+                        usLoc[0]= 1;
+                    }
+                    else
+                    {
+                        usLoc[0]= 0;
+                    }
+                    
+
 cout << endl << "print 1st printdir" << endl;
      for(int x=0; x<5 ; x++)
     {
@@ -96,6 +118,7 @@ cout << endl << "print 1st printdir" << endl;
         cout << "usLocB[" << x << "] = " << usLocB[x] << endl;
         
     }
+
 
     for(int x=0; x<5 ; x++)
     {
@@ -238,8 +261,8 @@ void TxtInputin()
 else {
     for (int p=1;p<5;p++)
     {
-        cout << "loop frunnfing = " << p << endl; 
-        cout << usLocB[1];
+        
+        
      //   cout << "its has been run" << endl;
 
 
@@ -249,7 +272,7 @@ else {
         if (usLocB[p] == false)
          {
              
-             
+             cout << endl << "searching for being" << endl;
              int r;
              //cout <<  LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];   
                                 
@@ -258,30 +281,27 @@ else {
                  //fucked used to be Usloc[p] = r
                  
                   //
-                    uLoc[p] = r;
-                    cout << LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] << endl;
+                    usLoc[p] = r;
+                    cout << "r = " <<  LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] << endl;
                     cout << "text = " << TxtInput <<  endl ;
                 
                 
                  if(TxtInput == LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]])
                  {
-                    
+                    cout << "searched Libarray[" << usLoc[1] << "]" << "[" << usLoc[2] << "]" << "[" << usLoc[3] << "]" << "[" << usLoc[4] << "]" << "[" << usLoc[5] << "]" << "[" << usLoc[6] << "]" << "[" << usLoc[7] << "]" << "[" << usLoc[8] << "]" << "[" << usLoc[9] << "]" << "[" << usLoc[10] << "]";
+                    cout << "r = " << r; 
                     usLoc[p] = r; 
+                    cout << "p = " << p; 
+                    cout << "r = " << r; 
                     r = arrayIndexAmount + 1;
-                    p = 5;
+                    usLocB[p] = true;
                     cmdfound = true;       
-                    cout << endl << "fouddddddddddddddddddddddddddddddddddddddddddnd" << endl;
+                   
+                  cout << "searched Libarray[" << usLoc[1] << "]" << "[" << usLoc[2] << "]" << "[" << usLoc[3] << "]" << "[" << usLoc[4] << "]" << "[" << usLoc[5] << "]" << "[" << usLoc[6] << "]" << "[" << usLoc[7] << "]" << "[" << usLoc[8] << "]" << "[" << usLoc[9] << "]" << "[" << usLoc[10] << "]";
                        
                  }
-                 else
-                 {
-                      
-        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-        cout << "Command Not Found" << endl;
-        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-        printdir();
-    
-                 }
+                 cout << "searched Libarray[" << usLoc[1] << "]" << "[" << usLoc[2] << "]" << "[" << usLoc[3] << "]" << "[" << usLoc[4] << "]" << "[" << usLoc[5] << "]" << "[" << usLoc[6] << "]" << "[" << usLoc[7] << "]" << "[" << usLoc[8] << "]" << "[" << usLoc[9] << "]" << "[" << usLoc[10] << "]";
+        
                  
               
                
@@ -290,6 +310,32 @@ else {
         
              }
              
+        
+             
+                   if(cmdfound == false)
+                   {
+                        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+        cout << "Command Not Found" << endl;
+        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        cout << "setting [" << p << "]" << endl;
+         usLoc[p]=0;
+
+  printdir();
+                   }
+                   else
+                   {
+                       printdir();
+                   }
+                   
+       
+
+        
+        
+
+
+
+
+
          }
 
     }
