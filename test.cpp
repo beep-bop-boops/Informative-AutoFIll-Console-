@@ -7,28 +7,32 @@
 #include <time.h>
 
 
+
 using namespace std;
 
 int main()
 {
 
-srand (time(NULL));
-int a;
+string a,f;
+getline(cin, a);
 
 
+cout << "a =" << a << endl;
 
-HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-
-for(int p=0; p<10; p++)
+if(a.substr( a.length() - 2 ) == "aa")
 {
-a = rand() % 3 +1;
-cout << a;
-if(a==0){SetConsoleTextAttribute(h, FOREGROUND_BLUE);}
-else if(a==1){SetConsoleTextAttribute(h, FOREGROUND_GREEN);}
-else if(a==2){SetConsoleTextAttribute(h, FOREGROUND_BLUE);}
-
-
+    cout << "sdfsdfsdfsff";
 }
+ //f = a.substr(0, a.find(" "));
+
+
+
+
+system("pause");
+
+
+cout << endl;
+//cout << a.substr(0, a.find(" "));
 
 
 
