@@ -17,16 +17,27 @@ string a,f;
 getline(cin, a);
 
 
-cout << "a =" << a << endl;
 
+string bb;
+bb = a.substr(1, 8);
+
+cout << bb;
+/*
 if(a.substr( a.length() - 2 ) == "aa")
 {
-    cout << "sdfsdfsdfsff";
+    cout << "found";
 }
  //f = a.substr(0, a.find(" "));
-
-
-
+*/
+/*
+cout<<myString[0];
+cout(myString.size-1);i++)
+        { if(myString[i]==" ")
+          {
+           cout<< myString[i+1];
+          {
+        }
+*/
 
 system("pause");
 

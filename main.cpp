@@ -17,7 +17,10 @@ int usLoc[10];
 bool usLocB[5];
 bool exitDir = false;
 int Loc[5];
-string title,t;
+string title,t, strStar;
+
+bool debug = false;
+
 
 void printdir();
 void initializeDictionary();
@@ -77,6 +80,20 @@ int main()
 
 void printdir()
 {
+
+    if(debug == true)
+    {
+    cout << usLoc[1] << endl;
+    cout << usLoc[2] << endl;
+    cout << usLoc[3] << endl;
+    cout << usLoc[4] << endl;
+
+    cout << usLocB[1] << endl;
+    cout << usLocB[2] << endl;
+    cout << usLocB[3] << endl;
+    cout << usLocB[4] << endl;
+    }
+
     cmdfound = false;
     exitDir = false;
 
@@ -130,13 +147,11 @@ void printdir()
     /*
     for (int x = 0; x < 10; x++)
     {
-
         cout << "usLocB[" << x << "] = " << usLocB[x] << endl;
     }
 
     for (int x = 0; x < 10; x++)
     {
-
         cout << "usLoc[" << x << "] = " << usLoc[x] << endl;
     }
 
@@ -185,6 +200,11 @@ void TxtInputin()
     cmdfound = false;
 
     getline(cin, TxtInput);
+
+    strStar = TxtInput.substr(0, 6);
+
+ 
+   
 
     if (TxtInput == "exit")
     {
@@ -253,6 +273,15 @@ void TxtInputin()
         cout << "| exit -- will exit any subdirectory|" << endl;
         cout << "|         you are currently in      |" << endl;
         cout << "------------------------------------" << endl;
+        cout << "|         Create and delete         |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| +subd\\""Name"" --  Will create   |" << endl;
+        cout << "|         a new subdirectory        |" << endl;
+        cout << "| -subd\\""Name"" --  Will delete   |" << endl;
+        cout << "|         the subdirectory and any  |" << endl;
+        cout << "|         subdirectory within the   |" << endl;
+        cout << "|         folder                    |" << endl;
+        cout << "------------------------------------" << endl;
         cout << "| Files listed in the subd search   |" << endl;
         cout << "------------------------------------" << endl;
         cout << "| .fo  = folder                     |" << endl;
@@ -282,6 +311,77 @@ void TxtInputin()
         printdir();
     }
 
+    
+
+  else if (strStar == "+subd\\")
+   {
+
+       int start,end, sett;
+       string ser;
+      
+       
+if(TxtInput.substr( TxtInput.length() - 3 ) == ".fo" )
+{
+    for (int b = 1; b < arrayIndexAmount; b++)
+    {
+        if(usLocB[b] == false)
+        {
+            for(int y = 1; y < LocAmount; y++)
+            {
+                usLoc[b] = y;
+                ser = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
+                if(ser.length() == 0)
+                {
+                    
+                    start = 6;
+                    end = TxtInput.length();
+                    LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = TxtInput.substr(start, end);
+                    usLoc[b] = 0;
+                    sett = y;
+                   
+                   y = LocAmount + 1;
+                   b = arrayIndexAmount + 1;
+                    
+                }
+               
+                
+                
+            }
+            
+        }
+
+    }
+
+                        loadanimin();
+                        cout << TxtInput.substr(start, end) << " Directory Created";
+                        loadanimout();
+    printdir();
+}
+else 
+{
+    
+                    loadanimin();
+                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    cout << "Subdirectory Could Not Be Created" ;
+                    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                    loadanimout();
+                    
+                    loadanimin();
+                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                    cout << TxtInput.substr( TxtInput.length() - 3 ) << " Extension Invalid";
+                    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                    loadanimout();
+    printdir();
+}
+
+    
+
+   }
+
+
+
+
+
     else
     {
         for (int p = 1; p < 5; p++)
@@ -289,7 +389,8 @@ void TxtInputin()
             if (usLocB[p] == false)
             {
                 int r;
-                for (r = 1; r < arrayIndexAmount; r++)
+                //loc amount
+                for (r = 1; r < LocAmount; r++)
                 {
                     usLoc[p] = r;
                     string firstWord, temp;
@@ -299,8 +400,8 @@ void TxtInputin()
                     if (TxtInput == firstWord)
                     {
                         usLoc[p] = r;
-
-                        r = arrayIndexAmount + 1;
+//locacmount
+                        r = LocAmount + 1;
 
                         usLocB[p] = true;
 
@@ -392,7 +493,7 @@ void Subidirectory()
             cout << title << "Subdirectorys found & listed :";
 
             int r;
-            for (r = 1; r < arrayIndexAmount; r++)
+            for (r = 1; r < LocAmount; r++)
             {
 
                 usLoc[p] = r;
