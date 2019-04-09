@@ -13,7 +13,13 @@ using namespace std;
 int main()
 {
 
-string a,f;
+string a,b;
+b = "aaaasd";
+a = "a" + b;
+
+cout << a;
+
+/*
 getline(cin, a);
 
 
@@ -22,7 +28,7 @@ string bb;
 bb = a.substr(1, 8);
 
 cout << bb;
-/*
+
 if(a.substr( a.length() - 2 ) == "aa")
 {
     cout << "found";

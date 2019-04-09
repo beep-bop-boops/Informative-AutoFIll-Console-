@@ -17,10 +17,9 @@ int usLoc[10];
 bool usLocB[5];
 bool exitDir = false;
 int Loc[5];
-string title,t, strStar;
+string title, t, strStar;
 
 bool debug = false;
-
 
 void printdir();
 void initializeDictionary();
@@ -34,6 +33,7 @@ void loadanimout();
 void Subidirectory();
 void randcolour();
 void remove_scrollbar();
+void fillcontent();
 
 int main()
 {
@@ -81,17 +81,17 @@ int main()
 void printdir()
 {
 
-    if(debug == true)
+    if (debug == true)
     {
-    cout << usLoc[1] << endl;
-    cout << usLoc[2] << endl;
-    cout << usLoc[3] << endl;
-    cout << usLoc[4] << endl;
+        cout << usLoc[1] << endl;
+        cout << usLoc[2] << endl;
+        cout << usLoc[3] << endl;
+        cout << usLoc[4] << endl;
 
-    cout << usLocB[1] << endl;
-    cout << usLocB[2] << endl;
-    cout << usLocB[3] << endl;
-    cout << usLocB[4] << endl;
+        cout << usLocB[1] << endl;
+        cout << usLocB[2] << endl;
+        cout << usLocB[3] << endl;
+        cout << usLocB[4] << endl;
     }
 
     cmdfound = false;
@@ -161,32 +161,31 @@ void printdir()
         t = LibArray[usLoc[1]][0][0][0][0];
         title = t.substr(0, t.find(" "));
         cout << title << "\\";
-    
     }
     if (usLocB[2] == true)
     {
-       
-         t = LibArray[usLoc[1]][usLoc[2]][0][0][0];
+
+        t = LibArray[usLoc[1]][usLoc[2]][0][0][0];
         title = t.substr(0, t.find(" "));
         cout << title << "\\";
     }
     if (usLocB[3] == true)
     {
-        
-         t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][0][0];
+
+        t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][0][0];
         title = t.substr(0, t.find(" "));
         cout << title << "\\";
     }
     if (usLocB[4] == true)
     {
-       
-         t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][0];
+
+        t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][0];
         title = t.substr(0, t.find(" "));
         cout << title << "\\";
     }
     if (usLocB[5] == true)
     {
-        
+
         t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
         title = t.substr(0, t.find(" "));
         cout << title << "\\";
@@ -203,9 +202,6 @@ void TxtInputin()
 
     strStar = TxtInput.substr(0, 6);
 
- 
-   
-
     if (TxtInput == "exit")
     {
         int o = 0;
@@ -219,20 +215,20 @@ void TxtInputin()
                 if (usLoc[a] > 0)
 
                 {
-                    
-                    if(o == 0)
+
+                    if (o == 0)
                     {
 
-                    loadanimin();
-                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                        loadanimin();
+                        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
 
-                    t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
-                    title = t.substr(0, t.find(" "));
-                    cout << title << " directory left";
-                    
-                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                    loadanimout();
-                    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
+                        t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
+                        title = t.substr(0, t.find(" "));
+                        cout << title << " directory left";
+
+                        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+                        loadanimout();
+                        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
                     }
                     int d;
                     d = a + 1;
@@ -240,7 +236,6 @@ void TxtInputin()
                     if (usLoc[d] == 0)
                     {
                         usLoc[a] = 0;
-                       
 
                         exitDir = true;
                     }
@@ -248,7 +243,6 @@ void TxtInputin()
             }
 
             o = 1;
-            
         }
 
         printdir();
@@ -257,6 +251,12 @@ void TxtInputin()
     else if (TxtInput == "subd")
     {
         Subidirectory();
+        printdir();
+    }
+
+    else if (TxtInput == "d")
+    {
+        debug = true;
         printdir();
     }
 
@@ -275,9 +275,15 @@ void TxtInputin()
         cout << "------------------------------------" << endl;
         cout << "|         Create and delete         |" << endl;
         cout << "------------------------------------" << endl;
-        cout << "| +subd\\""Name"" --  Will create   |" << endl;
+        cout << "| +subd\\"
+                "Name"
+                " --  Will create   |"
+             << endl;
         cout << "|         a new subdirectory        |" << endl;
-        cout << "| -subd\\""Name"" --  Will delete   |" << endl;
+        cout << "| -subd\\"
+                "Name"
+                " --  Will delete   |"
+             << endl;
         cout << "|         the subdirectory and any  |" << endl;
         cout << "|         subdirectory within the   |" << endl;
         cout << "|         folder                    |" << endl;
@@ -299,88 +305,73 @@ void TxtInputin()
 
         printdir();
     }
-    else if (TxtInput == " " || TxtInput == ""  )
+    else if (TxtInput == " " || TxtInput == "")
     {
         loadanimin();
-                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                    
-                    cout << "No Command Entered";
-                    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-                    loadanimout();
-        
+        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+        cout << "No Command Entered";
+        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        loadanimout();
+
         printdir();
     }
 
-    
-
-  else if (strStar == "+subd\\")
-   {
-
-       int start,end, sett;
-       string ser;
-      
-       
-if(TxtInput.substr( TxtInput.length() - 3 ) == ".fo" )
-{
-    for (int b = 1; b < arrayIndexAmount; b++)
+    else if (strStar == "+subd\\")
     {
-        if(usLocB[b] == false)
+
+        int start, end, sett;
+        string ser;
+
+        if (TxtInput.substr(TxtInput.length() - 3) == ".fo" || ".in" || ".tu" || ".bu")
         {
-            for(int y = 1; y < LocAmount; y++)
+            for (int b = 1; b < arrayIndexAmount; b++)
             {
-                usLoc[b] = y;
-                ser = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
-                if(ser.length() == 0)
+                if (usLocB[b] == false)
                 {
-                    
-                    start = 6;
-                    end = TxtInput.length();
-                    LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = TxtInput.substr(start, end);
-                    usLoc[b] = 0;
-                    sett = y;
-                   
-                   y = LocAmount + 1;
-                   b = arrayIndexAmount + 1;
-                    
+                    for (int y = 1; y < LocAmount; y++)
+                    {
+                        usLoc[b] = y;
+                        ser = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
+                        if (ser.length() == 0)
+                        {
+
+                            start = 6;
+                            end = TxtInput.length();
+                            LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = TxtInput.substr(start, end) + " ";
+                            fillcontent();
+                            usLoc[b] = 0;
+                            sett = y;
+
+                            y = LocAmount + 1;
+                            b = arrayIndexAmount + 1;
+                        }
+                    }
                 }
-               
-                
-                
             }
-            
+
+            loadanimin();
+            cout << TxtInput.substr(start, end) << " Directory Created";
+            loadanimout();
+            printdir();
         }
+        else
+        {
 
+            loadanimin();
+            SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            cout << "Subdirectory Could Not Be Created";
+            SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            loadanimout();
+
+            loadanimin();
+            SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            cout << TxtInput.substr(TxtInput.length() - 3) << " Extension Invalid";
+            SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            loadanimout();
+            printdir();
+        }
     }
-
-                        loadanimin();
-                        cout << TxtInput.substr(start, end) << " Directory Created";
-                        loadanimout();
-    printdir();
-}
-else 
-{
-    
-                    loadanimin();
-                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                    cout << "Subdirectory Could Not Be Created" ;
-                    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-                    loadanimout();
-                    
-                    loadanimin();
-                    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                    cout << TxtInput.substr( TxtInput.length() - 3 ) << " Extension Invalid";
-                    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-                    loadanimout();
-    printdir();
-}
-
-    
-
-   }
-
-
-
-
 
     else
     {
@@ -400,7 +391,7 @@ else
                     if (TxtInput == firstWord)
                     {
                         usLoc[p] = r;
-//locacmount
+                        //locacmount
                         r = LocAmount + 1;
 
                         usLocB[p] = true;
@@ -410,11 +401,10 @@ else
                         cout << "Accesed to " << TxtInput << " directory granted";
                         loadanimout();
 
-                        if(firstWord.substr( firstWord.length() - 3 ) == ".in")
-{
-    cout << temp << endl;
-}
-                       
+                        if (firstWord.substr(firstWord.length() - 3) == ".in")
+                        {
+                            cout << temp << endl;
+                        }
                     }
                 }
 
@@ -423,7 +413,7 @@ else
 
                     loadanimin();
                     SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                    
+
                     cout << "Command Not Found";
                     SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
                     loadanimout();
@@ -455,13 +445,13 @@ void initializeDictionary()
     LibArray[1][3][0][0][0] = "userstuff.fo";
     LibArray[1][4][0][0][0] = "windowsHelp.in \n This is a windows help tutorial \n Windows is an operating system designed by Microsoft. The operating system is what allows you to use a computer. Windows comes preloaded on most new personal computers (PCs), which helps to make it the most popular operating system in the world.Windows makes it possible to complete all types of everyday tasks on your computer. For example, you can use Windows to browse the Internet, check your email, edit digital photos, listen to music, play games, and do much more.";
 
-     //windows - terminal
+    //windows - terminal
 
     LibArray[1][1][1][0][0] = "terminal.fo";
     LibArray[1][1][2][0][0] = "applications.fo";
     LibArray[1][1][3][0][0] = "userstuff.fo";
 
-      //windows - terminal - terminal
+    //windows - terminal - terminal
 
     LibArray[1][1][1][1][0] = "terminal.fo";
     LibArray[1][1][1][2][0] = "applications.fo";
@@ -471,13 +461,13 @@ void initializeDictionary()
     LibArray[2][2][0][0][0] = "lapplications.fo";
     LibArray[2][3][0][0][0] = "luserstuff.fo";
 
-
     LibArray[2][1][1][0][0] = "bruteForce.in";
 }
 
 void Subidirectory()
 {
 
+    int line = 0;
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
     for (int p = 1; p < arrayIndexAmount; p++)
@@ -487,27 +477,44 @@ void Subidirectory()
             SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
             t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
-                 title = t.substr(0, t.find(" "));
-                  
+            title = t.substr(0, t.find(" "));
 
-            cout << title << "Subdirectorys found & listed :";
+            cout << title << "Subdirectorys found & listed :" << endl;
 
             int r;
             for (r = 1; r < LocAmount; r++)
             {
 
                 usLoc[p] = r;
-                SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
-                cout << "---";
-                randcolour();
-                Sleep(200);
-             
-
-
                 t = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]];
-                 title = t.substr(0, t.find(" "));
-                  cout << title ;
+                title = t.substr(0, t.find(" "));
 
+                if (debug == true)
+                {
+                    cout << endl
+                         << t << endl
+                         << t.length();
+                }
+
+                if (t.length() != 0)
+                {
+
+                    randcolour();
+                    cout << "[";
+                    cout << title;
+                    cout << "]";
+                    // SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
+                    cout << "    ";
+
+                    Sleep(200);
+
+                    line = line + 1;
+                    if (line == 3)
+                    {
+                        cout << endl;
+                        line = 0;
+                    }
+                }
             }
 
             usLoc[p] = 0;
@@ -654,4 +661,20 @@ void remove_scrollbar()
             info.srWindow.Right - info.srWindow.Left + 1,
             info.srWindow.Bottom - info.srWindow.Top + 1};
     SetConsoleScreenBufferSize(handle, new_size);
+}
+
+void fillcontent()
+{
+    string cont;
+
+    if (TxtInput.substr(TxtInput.length() - 3) == ".in")
+    {
+        cout << endl
+             << "Please Fill in content of .in File :" << endl;
+        getline(cin, cont);
+        LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] + cont;
+    }
+    else
+    {
+    }
 }
