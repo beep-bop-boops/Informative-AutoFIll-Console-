@@ -5,54 +5,47 @@
 #include <cstdlib>
 #include <cstring>
 #include <time.h>
-
-
+#include <fstream>
 
 using namespace std;
+
+string decode();
 
 int main()
 {
 
-string a,b;
-b = "aaaasd";
-a = "a" + b;
+string print;
 
-cout << a;
+print = decode(1);
 
-/*
-getline(cin, a);
-
-
-
-string bb;
-bb = a.substr(1, 8);
-
-cout << bb;
-
-if(a.substr( a.length() - 2 ) == "aa")
-{
-    cout << "found";
-}
- //f = a.substr(0, a.find(" "));
-*/
-/*
-cout<<myString[0];
-cout(myString.size-1);i++)
-        { if(myString[i]==" ")
-          {
-           cout<< myString[i+1];
-          {
-        }
-*/
+cout << print;
 
 system("pause");
-
-
-cout << endl;
-//cout << a.substr(0, a.find(" "));
-
-
-
-
-    return 0;
+return 0;
 }
+
+
+
+
+  
+void decode()
+{
+    
+   // x = rand() % 2 + 1;
+    string b;
+     if(a+=2)
+     {
+    b = "hello"; 
+     }
+     else if(a==2)
+     {
+         b = "fuck off";
+     }
+
+
+    cout << 
+
+    return b;
+}
+
+

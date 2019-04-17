@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <time.h>
+#include <fstream>
 #define _WIN32_WINNT 0 * 0502
 using namespace std;
 
@@ -17,9 +18,14 @@ int usLoc[10];
 bool usLocB[5];
 bool exitDir = false;
 int Loc[5];
-string title, t, strStar;
+string title, t, strStar,decodes;
+string filename;
+string password;
+
+ofstream file;
 
 bool debug = false;
+
 
 void printdir();
 void initializeDictionary();
@@ -27,6 +33,9 @@ void TxtInputin();
 void TxtInputout();
 void cmd2in();
 void cmd2out();
+void exportdata();
+void decode();
+
 
 void loadanimin();
 void loadanimout();
@@ -35,8 +44,52 @@ void randcolour();
 void remove_scrollbar();
 void fillcontent();
 
+
+
+
+
+
+int unEnCr(int q, int w, int e, int r, int t)
+{
+
+
+ string code;
+ code = LibArray[q][w][e][r][t];
+ 
+ 
+ int len = code.length();
+ for(int g = 0; g<len;g++)
+ {
+
+     if(code.at(g) == 'w')
+     {
+         file << "!";
+     }
+     else
+     {
+    file << code.at(g);
+     }
+ }
+
+file << ",";
+ return 0;
+
+
+
+}
+
+
+
+
+
+
+
 int main()
 {
+
+      
+    
+
     for (int x = 0; x < LocAmount; x++)
     {
         usLoc[x] = 0;
@@ -260,6 +313,56 @@ void TxtInputin()
         printdir();
     }
 
+ else if (TxtInput == "export")
+    {
+        
+        string yn;
+        cout << "Please enter file name : ";
+        cin >> filename;
+        filename = filename + ".csv";
+
+        cout << "Would you like to set a password for the file (Y/N):";
+        cin >> yn;
+
+        while(true)
+        {
+        if(yn == "y")
+        {   
+            cout << "Password :";
+            cin >> password;
+            
+            break;
+            
+        }
+        else if(yn == "n")
+        {
+            
+            break;
+            
+        }
+        else
+        {
+            cout << "Input must be y or n." << endl;
+            cout << "Would you like to set a password for the file (Y/N):";
+            cin >> yn;
+        }
+
+        }
+        
+        
+        loadanimin();
+        SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        cout << "File exported";
+        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+        loadanimout();
+        
+        file.open(filename);
+
+        exportdata();
+        
+        printdir();
+    }
+
     else if (TxtInput == "help")
     {
         loadanimin();
@@ -272,26 +375,20 @@ void TxtInputin()
         cout << "|         subdirectorys             |" << endl;
         cout << "| exit -- will exit any subdirectory|" << endl;
         cout << "|         you are currently in      |" << endl;
-        cout << "------------------------------------" << endl;
+        cout << "------------------------------------"  << endl;
         cout << "|         Create and delete         |" << endl;
-        cout << "------------------------------------" << endl;
-        cout << "| +subd\\"
-                "Name"
-                " --  Will create   |"
-             << endl;
+        cout << "------------------------------------"  << endl;
+        cout << "| +subd\\Name --  Will create       |" << endl;
         cout << "|         a new subdirectory        |" << endl;
-        cout << "| -subd\\"
-                "Name"
-                " --  Will delete   |"
-             << endl;
+        cout << "| -subd\\Name --  Will delete       |" << endl;
         cout << "|         the subdirectory and any  |" << endl;
         cout << "|         subdirectory within the   |" << endl;
         cout << "|         folder                    |" << endl;
-        cout << "------------------------------------" << endl;
+        cout << "------------------------------------"  << endl;
         cout << "| Files listed in the subd search   |" << endl;
-        cout << "------------------------------------" << endl;
+        cout << "------------------------------------"  << endl;
         cout << "| .fo  = folder                     |" << endl;
-        cout << "------------------------------------" << endl;
+        cout << "------------------------------------"  << endl;
         cout << "| .in  = informative text           |" << endl;
         cout << "------------------------------------" << endl;
         cout << "| .tu  = is a step by step tutorial |" << endl;
@@ -302,7 +399,21 @@ void TxtInputin()
         cout << "|         number representing the   |" << endl;
         cout << "|         severity of the bug.      |" << endl;
         cout << "------------------------------------" << endl;
-
+        cout << "|           Import / Export         |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| export = will export all          |" << endl;
+        cout << "|          directorys to a csv file |" << endl;
+        cout << "| import = will clear all curent    |" << endl;
+        cout << "|          directorys & import ones |" << endl;
+        cout << "|          in the csv file          |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "|                Tools              |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| clear -- will clear screen        |" << endl;
+        cout << "| 5563  -- will delete all          |" << endl;
+        cout << "|          directorys and restart   |" << endl;
+        cout << "|          the exe !!               |" << endl;  
+        cout << "------------------------------------" << endl;             
         printdir();
     }
     else if (TxtInput == " " || TxtInput == "")
@@ -371,6 +482,36 @@ void TxtInputin()
             loadanimout();
             printdir();
         }
+    }
+
+    else if(TxtInput == "clear")
+    {
+        int  a = 5;
+      
+      system("CLS");
+        Sleep(200);
+       
+    cout << "------------------------------------" << endl;
+    cout << "|               _        _______   |" << endl;
+    cout << "|      |       / \\      |          |" << endl;
+    cout << "|      |      /   \\     |          |" << endl;
+    cout << "|      |     /     \\    |          |" << endl;
+    cout << "|      |    /_______\\   |          |" << endl;
+    cout << "|      |   /         \\  |          |" << endl;
+    cout << "|      |  /           \\ |_______   |" << endl;
+    cout << "|                                  |" << endl;
+    cout << "------------------------------------" << endl;
+    cout << "|          Welcome To IAC          |" << endl;
+    cout << "------------------------------------" << endl;
+    cout << "|   Enter help in any directory to |" << endl;
+    cout << "|   view information on how to use |" << endl;
+    cout << "|                 IAC              |" << endl;
+    cout << "------------------------------------" << endl;
+    
+     
+
+     printdir();
+    
     }
 
     else
@@ -674,7 +815,118 @@ void fillcontent()
         getline(cin, cont);
         LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] + cont;
     }
-    else
+    else if(TxtInput.substr(TxtInput.length() - 3) == ".tu")
     {
     }
 }
+
+void exportdata()
+{
+ 
+    for(int q=0; q<LocAmount; q++)
+    {   
+        for(int w=0; w<LocAmount; w++)
+        {
+            for(int e=0; e<LocAmount; e++)
+            {
+                for(int r=0; r<LocAmount; r++)
+                {
+                    for(int t=0; t<LocAmount; t++)
+                    {
+                        if(LibArray[t][r][e][w][q].length() == 0)
+                        {
+                            decode();
+                            //file << decodes << "," ;
+                            
+                        }
+                        else
+                        {
+
+                        unEnCr(t,r,e,w,q);
+
+                        //file << LibArray[t][r][e][w][q] << ",";
+                        //file << LibArray[t][r][e][w][q] << t << r << e << w << q << ",";
+                       
+                        }  
+                         
+                    }  
+                                  
+                }
+                file << endl;    
+            }
+            file << endl;    
+    
+        }
+        file << endl;    
+    }
+    file << endl;    
+}
+
+// file << endl = one down
+// file << "," = to the right 
+
+
+void decode()
+{
+
+
+    // 5 chars of diffrent symbol. Each char can be a rand simb (0-12)
+    int x;
+
+
+    int loopmax = rand() % 20 + 1;
+    string a[loopmax];
+
+    for(int y=0; y<loopmax; y++)
+    {
+    x = rand() % 5 + 1;
+
+     if(x == 1)
+     {
+        a[y] = "£"; 
+     }
+     else if(x == 2)
+     {
+         a[y] = "&";
+     }
+     else if(x == 3)
+     {
+         a[y] = "(";
+     }
+     else if(x == 4)
+     {
+         a[y] = "#";
+     }
+     else if(x == 5)
+     {
+         a[y] = "(";
+     }
+
+
+    }
+
+ //   decodes = a;
+    for(int v=0; v<loopmax; v++)
+    {
+    file << a[v] ;
+    }
+    file << "," ;
+}
+
+/*
+int unEnCr(int q, int w, int e, int r, int t)
+{
+ string code;
+ code = LibArray[q][w][e][r][t];
+ 
+ int len = code.length();
+ for(int g; g<len;g++)
+ {
+    cout << code.at(g);
+ }
+
+ return 0;
+
+}
+
+*/
