@@ -1,3 +1,5 @@
+//in cmd input "chcp 437"
+
 #include <iostream>
 #include <string>
 #include <Windows.h>
@@ -17,14 +19,24 @@ int LocAmount = 10;
 int usLoc[10];
 bool usLocB[5];
 bool exitDir = false;
+bool cmdEnt = false;
 int Loc[5];
-string title, t, strStar,decodes;
+string title, t, strStar, decodes;
 string filename;
 string password;
 
 ofstream file;
 
 bool debug = false;
+
+string cP0 =  " ";                      //0  ─
+const char cP1 = 196;                   //1  ─
+const char cP2 = 195;                   //2  ├
+const char cP3 = 218;                   //3  ┌
+const char cP4 = 191;                   //4  ┐
+const char cP5 = 192;                   //5  └
+const char cP6 = 217;                   //6  ┘
+const char cP7 = 175;                   //7  »
 
 
 void printdir();
@@ -36,7 +48,6 @@ void cmd2out();
 void exportdata();
 void decode();
 
-
 void loadanimin();
 void loadanimout();
 void Subidirectory();
@@ -46,49 +57,70 @@ void fillcontent();
 
 
 
-
-
-
-int unEnCr(int q, int w, int e, int r, int t)
+void print(int id, int amount)
 {
 
-
- string code;
- code = LibArray[q][w][e][r][t];
- 
- 
- int len = code.length();
- for(int g = 0; g<len;g++)
- {
-
-     if(code.at(g) == 'w')
-     {
-         file << "!";
-     }
-     else
-     {
-    file << code.at(g);
-     }
- }
-
-file << ",";
- return 0;
-
+for(int i = 0; i<amount; i++)
+{
+    if(id == 0)
+    {
+        cout << cP0;
+    }
+     if(id == 1)
+    {
+        cout << cP1;
+    }
+     if(id == 2)
+    {
+        cout << cP2;
+    }
+     if(id == 3)
+    {
+        cout << cP4;
+    }
+     if(id == 5)
+    {
+        cout << cP5;
+    }
+     if(id == 6)
+    {
+        cout << cP6;
+    }
+     if(id == 7)
+    {
+        cout << cP7;
+    }
+}
 
 
 }
 
+int unEnCr(int q, int w, int e, int r, int t)
+{
 
+    string code;
+    code = LibArray[q][w][e][r][t];
 
+    int len = code.length();
+    for (int g = 0; g < len; g++)
+    {
 
+        if (code.at(g) == 'w')
+        {
+            file << "!";
+        }
+        else
+        {
+            file << code.at(g);
+        }
+    }
 
-
+    file << ",";
+    return 0;
+}
 
 int main()
 {
-
-      
-    
 
     for (int x = 0; x < LocAmount; x++)
     {
@@ -96,7 +128,9 @@ int main()
     }
     srand(time(NULL));
     initializeDictionary();
-    cout << "------------------------------------" << endl;
+
+    print(1,6);
+    cout << "|-----------------------------------" << endl;
     cout << "|               _        _______   |" << endl;
     cout << "|      |       / \\      |          |" << endl;
     cout << "|      |      /   \\     |          |" << endl;
@@ -171,20 +205,6 @@ void printdir()
         usLoc[0] = 0;
     }
 
-    /*
-    for (int x = 0; x < 5; x++)
-    {
-
-        cout << "usLocB[" << x << "] = " << usLocB[x] << endl;
-    }
-
-    for (int x = 0; x < 5; x++)
-    {
-
-        cout << "usLoc[" << x << "] = " << usLoc[x] << endl;
-    }
-    */
-
     for (int n = 0; n < LocAmount; n++)
     {
         if (usLoc[n] > 0)
@@ -197,18 +217,6 @@ void printdir()
         }
     }
 
-    /*
-    for (int x = 0; x < 10; x++)
-    {
-        cout << "usLocB[" << x << "] = " << usLocB[x] << endl;
-    }
-
-    for (int x = 0; x < 10; x++)
-    {
-        cout << "usLoc[" << x << "] = " << usLoc[x] << endl;
-    }
-
-*/
     if (usLocB[1] == true)
     {
         t = LibArray[usLoc[1]][0][0][0][0];
@@ -251,7 +259,8 @@ void TxtInputin()
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     cmdfound = false;
 
-    getline(cin, TxtInput);
+    cin >> TxtInput;
+    //getline(cin, TxtInput);
 
     strStar = TxtInput.substr(0, 6);
 
@@ -313,9 +322,9 @@ void TxtInputin()
         printdir();
     }
 
- else if (TxtInput == "export")
+    else if (TxtInput == "export")
     {
-        
+
         string yn;
         cout << "Please enter file name : ";
         cin >> filename;
@@ -324,42 +333,38 @@ void TxtInputin()
         cout << "Would you like to set a password for the file (Y/N):";
         cin >> yn;
 
-        while(true)
+        while (true)
         {
-        if(yn == "y")
-        {   
-            cout << "Password :";
-            cin >> password;
-            
-            break;
-            
-        }
-        else if(yn == "n")
-        {
-            
-            break;
-            
-        }
-        else
-        {
-            cout << "Input must be y or n." << endl;
-            cout << "Would you like to set a password for the file (Y/N):";
-            cin >> yn;
+            if (yn == "y")
+            {
+                cout << "Password :";
+                cin >> password;
+
+                break;
+            }
+            else if (yn == "n")
+            {
+
+                break;
+            }
+            else
+            {
+                cout << "Input must be y or n." << endl;
+                cout << "Would you like to set a password for the file (Y/N):";
+                cin >> yn;
+            }
         }
 
-        }
-        
-        
         loadanimin();
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "File exported";
         SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         loadanimout();
-        
+
         file.open(filename);
 
         exportdata();
-        
+        cmdEnt = true;
         printdir();
     }
 
@@ -375,23 +380,21 @@ void TxtInputin()
         cout << "|         subdirectorys             |" << endl;
         cout << "| exit -- will exit any subdirectory|" << endl;
         cout << "|         you are currently in      |" << endl;
-        cout << "------------------------------------"  << endl;
+        cout << "------------------------------------" << endl;
         cout << "|         Create and delete         |" << endl;
-        cout << "------------------------------------"  << endl;
+        cout << "------------------------------------" << endl;
         cout << "| +subd\\Name --  Will create       |" << endl;
         cout << "|         a new subdirectory        |" << endl;
         cout << "| -subd\\Name --  Will delete       |" << endl;
         cout << "|         the subdirectory and any  |" << endl;
         cout << "|         subdirectory within the   |" << endl;
         cout << "|         folder                    |" << endl;
-        cout << "------------------------------------"  << endl;
-        cout << "| Files listed in the subd search   |" << endl;
-        cout << "------------------------------------"  << endl;
-        cout << "| .fo  = folder                     |" << endl;
-        cout << "------------------------------------"  << endl;
-        cout << "| .in  = informative text           |" << endl;
         cout << "------------------------------------" << endl;
-        cout << "| .tu  = is a step by step tutorial |" << endl;
+        cout << "| Files listed in the subd search   |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| .fo  = folder                     |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "| .in  = informative text           |" << endl;
         cout << "------------------------------------" << endl;
         cout << "| .bu  = is a bug found in any      |" << endl;
         cout << "|        real world programe/website|" << endl;
@@ -412,29 +415,20 @@ void TxtInputin()
         cout << "| clear -- will clear screen        |" << endl;
         cout << "| 5563  -- will delete all          |" << endl;
         cout << "|          directorys and restart   |" << endl;
-        cout << "|          the exe !!               |" << endl;  
-        cout << "------------------------------------" << endl;             
-        printdir();
-    }
-    else if (TxtInput == " " || TxtInput == "")
-    {
-        loadanimin();
-        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-
-        cout << "No Command Entered";
-        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-        loadanimout();
-
+        cout << "|          the exe !!               |" << endl;
+        cout << "------------------------------------" << endl;
         printdir();
     }
 
     else if (strStar == "+subd\\")
     {
 
+        //  cout << TxtInput.substr(TxtInput.length() - 3;
+
         int start, end, sett;
         string ser;
 
-        if (TxtInput.substr(TxtInput.length() - 3) == ".fo" || ".in" || ".tu" || ".bu")
+        if (TxtInput.substr(TxtInput.length() - 3) == ".fo" || TxtInput.substr(TxtInput.length() - 3) == ".in")
         {
             for (int b = 1; b < arrayIndexAmount; b++)
             {
@@ -484,38 +478,214 @@ void TxtInputin()
         }
     }
 
-    else if(TxtInput == "clear")
+    else if (strStar == "-subd\\")
     {
-        int  a = 5;
-      
-      system("CLS");
-        Sleep(200);
-       
-    cout << "------------------------------------" << endl;
-    cout << "|               _        _______   |" << endl;
-    cout << "|      |       / \\      |          |" << endl;
-    cout << "|      |      /   \\     |          |" << endl;
-    cout << "|      |     /     \\    |          |" << endl;
-    cout << "|      |    /_______\\   |          |" << endl;
-    cout << "|      |   /         \\  |          |" << endl;
-    cout << "|      |  /           \\ |_______   |" << endl;
-    cout << "|                                  |" << endl;
-    cout << "------------------------------------" << endl;
-    cout << "|          Welcome To IAC          |" << endl;
-    cout << "------------------------------------" << endl;
-    cout << "|   Enter help in any directory to |" << endl;
-    cout << "|   view information on how to use |" << endl;
-    cout << "|                 IAC              |" << endl;
-    cout << "------------------------------------" << endl;
-    
-     
+        int save[5];
+        for (int h = 0; h < LocAmount; h++)
+        {
+            save[h] = usLoc[h];
+        }
+        bool found = false;
 
-     printdir();
-    
+        for (int p = 1; p < 5; p++)
+        {
+            if (usLocB[p] == false)
+            {
+                int r, hold;
+
+                //loc amount
+                for (r = 1; r < LocAmount; r++)
+                {
+                    usLoc[p] = r;
+
+                    if (LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] == TxtInput.substr(6, TxtInput.length()))
+                    {
+
+                        LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = "";
+
+                        r = LocAmount + 1;
+                        p = 6;
+                        found = true;
+                        break;
+                    }
+                    else
+                    {
+                    }
+                }
+            }
+        }
+        if (found == false)
+        {
+            loadanimin();
+            SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+            cout << "Could Not Find Directory";
+            SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            loadanimout();
+        }
+        for (int h = 0; h < LocAmount; h++)
+        {
+            usLoc[h] = save[h];
+        }
+        printdir();
+    }
+
+    else if (TxtInput == "clear")
+    {
+
+        system("CLS");
+
+        cout << "------------------------------------" << endl;
+        cout << "|               _        _______   |" << endl;
+        cout << "|      |       / \\      |          |" << endl;
+        cout << "|      |      /   \\     |          |" << endl;
+        cout << "|      |     /     \\    |          |" << endl;
+        cout << "|      |    /_______\\   |          |" << endl;
+        cout << "|      |   /         \\  |          |" << endl;
+        cout << "|      |  /           \\ |_______   |" << endl;
+        cout << "|                                  |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "|          Welcome To IAC          |" << endl;
+        cout << "------------------------------------" << endl;
+        cout << "|   Enter help in any directory to |" << endl;
+        cout << "|   view information on how to use |" << endl;
+        cout << "|                 IAC              |" << endl;
+        cout << "------------------------------------" << endl;
+
+        printdir();
+    }
+
+    else if (TxtInput == "5563")
+    {
+        string yesno;
+
+        cout << "Are you sure you want to clear all data? (y/n) :";
+        cin >> yesno;
+
+        while (true)
+        {
+
+            if (yesno == "y")
+            {
+                SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+                for (int q = 0; q < LocAmount; q++)
+                {
+                    for (int w = 0; w < LocAmount; w++)
+                    {
+                        for (int e = 0; e < LocAmount; e++)
+                        {
+                            for (int r = 0; r < LocAmount; r++)
+                            {
+                                for (int t = 0; t < LocAmount; t++)
+                                {
+                                    LibArray[t][r][e][w][q] = "";
+
+                                    int x;
+                                    string a;
+
+                                    x = rand() % 5 + 1;
+
+                                    if (x == 1)
+                                    {
+                                        a = "£";
+                                    }
+                                    else if (x == 2)
+                                    {
+                                        a = "&";
+                                    }
+                                    else if (x == 3)
+                                    {
+                                        a = "(";
+                                    }
+                                    else if (x == 4)
+                                    {
+                                        a = "#";
+                                    }
+                                    else if (x == 5)
+                                    {
+                                        a = "(";
+                                    }
+
+                                    cout << a;
+                                    //Sleep(5);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                system("color 4F");
+                Sleep(200);
+                system("color 7C");
+                Sleep(200);
+                system("color 4F");
+                Sleep(200);
+                system("color 7C");
+                Sleep(200);
+
+                SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+                system("CLS");
+
+                cout << "------------------------------------" << endl;
+                cout << "|               _        _______   |" << endl;
+                cout << "|      |       / \\      |          |" << endl;
+                cout << "|      |      /   \\     |          |" << endl;
+                cout << "|      |     /     \\    |          |" << endl;
+                cout << "|      |    /_______\\   |          |" << endl;
+                cout << "|      |   /         \\  |          |" << endl;
+                cout << "|      |  /           \\ |_______   |" << endl;
+                cout << "|                                  |" << endl;
+                cout << "------------------------------------" << endl;
+                cout << "|          Welcome To IAC          |" << endl;
+                cout << "------------------------------------" << endl;
+                cout << "|   Enter help in any directory to |" << endl;
+                cout << "|   view information on how to use |" << endl;
+                cout << "|                 IAC              |" << endl;
+                cout << "------------------------------------" << endl;
+                break;
+            }
+            else if (yesno == "n")
+            {
+                break;
+            }
+            else
+            {
+                cout << "Input must be y or n." << endl;
+                cout << "Are you sure you want to clear all data? (y/n) :";
+                cin >> yesno;
+            }
+        }
+
+        cmdEnt = true;
+
+        printdir();
+    }
+
+    else if (TxtInput == " " || TxtInput == "")
+    {
+
+        if (cmdEnt)
+        {
+        }
+        else
+        {
+
+            cout << "enterd" << endl;
+            loadanimin();
+            SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+            cout << "No Command Entered";
+            SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+            loadanimout();
+            cmdEnt = true;
+            printdir();
+        }
     }
 
     else
     {
+
         for (int p = 1; p < 5; p++)
         {
             if (usLocB[p] == false)
@@ -664,34 +834,6 @@ void Subidirectory()
             cout << endl;
         }
     }
-
-    /*
-    else if (usLoc3 == 0 && usLoc1 > 0 && usLoc2 > 0)
-    {
-        SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-        cout << LibArray[usLoc1][usLoc2][0] << " Subdirectorys found & listed :";
-
-        for (int p = 0; p < 4; p++)
-        {
-
-             SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
-            cout << "---";
-            randcolour();
-            Sleep(200);
-            cout <<  LibArray[usLoc1][usLoc2][p+1];
-        }
-        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
-        cout << endl;
-    }
-
-    else
-    {
-        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-        cout << "No Subdirectory Found";
-        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
-        cout << endl;
-    }
-    */
 }
 
 void loadanimin()
@@ -812,121 +954,94 @@ void fillcontent()
     {
         cout << endl
              << "Please Fill in content of .in File :" << endl;
-        getline(cin, cont);
+        //getline(cin, cont);
+        cin >> cont;
         LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] + cont;
     }
-    else if(TxtInput.substr(TxtInput.length() - 3) == ".tu")
+    else if (TxtInput.substr(TxtInput.length() - 3) == ".tu")
     {
     }
 }
 
 void exportdata()
 {
- 
-    for(int q=0; q<LocAmount; q++)
-    {   
-        for(int w=0; w<LocAmount; w++)
+
+    for (int q = 0; q < LocAmount; q++)
+    {
+        for (int w = 0; w < LocAmount; w++)
         {
-            for(int e=0; e<LocAmount; e++)
+            for (int e = 0; e < LocAmount; e++)
             {
-                for(int r=0; r<LocAmount; r++)
+                for (int r = 0; r < LocAmount; r++)
                 {
-                    for(int t=0; t<LocAmount; t++)
+                    for (int t = 0; t < LocAmount; t++)
                     {
-                        if(LibArray[t][r][e][w][q].length() == 0)
+                        if (LibArray[t][r][e][w][q].length() == 0)
                         {
                             decode();
                             //file << decodes << "," ;
-                            
                         }
                         else
                         {
 
-                        unEnCr(t,r,e,w,q);
+                            unEnCr(t, r, e, w, q);
 
-                        //file << LibArray[t][r][e][w][q] << ",";
-                        //file << LibArray[t][r][e][w][q] << t << r << e << w << q << ",";
-                       
-                        }  
-                         
-                    }  
-                                  
+                            //file << LibArray[t][r][e][w][q] << ",";
+                            //file << LibArray[t][r][e][w][q] << t << r << e << w << q << ",";
+                        }
+                    }
                 }
-                file << endl;    
+                file << endl;
             }
-            file << endl;    
-    
+            file << endl;
         }
-        file << endl;    
+        file << endl;
     }
-    file << endl;    
+    file << endl;
 }
 
 // file << endl = one down
-// file << "," = to the right 
-
+// file << "," = to the right
 
 void decode()
 {
 
-
     // 5 chars of diffrent symbol. Each char can be a rand simb (0-12)
     int x;
-
 
     int loopmax = rand() % 20 + 1;
     string a[loopmax];
 
-    for(int y=0; y<loopmax; y++)
+    for (int y = 0; y < loopmax; y++)
     {
-    x = rand() % 5 + 1;
+        x = rand() % 5 + 1;
 
-     if(x == 1)
-     {
-        a[y] = "£"; 
-     }
-     else if(x == 2)
-     {
-         a[y] = "&";
-     }
-     else if(x == 3)
-     {
-         a[y] = "(";
-     }
-     else if(x == 4)
-     {
-         a[y] = "#";
-     }
-     else if(x == 5)
-     {
-         a[y] = "(";
-     }
-
-
+        if (x == 1)
+        {
+            a[y] = "£";
+        }
+        else if (x == 2)
+        {
+            a[y] = "&";
+        }
+        else if (x == 3)
+        {
+            a[y] = "(";
+        }
+        else if (x == 4)
+        {
+            a[y] = "#";
+        }
+        else if (x == 5)
+        {
+            a[y] = "(";
+        }
     }
 
- //   decodes = a;
-    for(int v=0; v<loopmax; v++)
+    //   decodes = a;
+    for (int v = 0; v < loopmax; v++)
     {
-    file << a[v] ;
+        file << a[v];
     }
-    file << "," ;
+    file << ",";
 }
-
-/*
-int unEnCr(int q, int w, int e, int r, int t)
-{
- string code;
- code = LibArray[q][w][e][r][t];
- 
- int len = code.length();
- for(int g; g<len;g++)
- {
-    cout << code.at(g);
- }
-
- return 0;
-
-}
-
-*/

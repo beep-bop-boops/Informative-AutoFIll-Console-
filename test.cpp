@@ -1,51 +1,49 @@
 #include <iostream>
-#include <string>
-#include <Windows.h>
-#include <cmath>
-#include <cstdlib>
-#include <cstring>
-#include <time.h>
-#include <fstream>
-
+ 
 using namespace std;
+ 
+const char Line = 196;
+const char WHITE = 32;
+const int SIZE = 8;
+const int BLOCK = 3;
+ 
+ int print(int amount)
+ {
+     for(int i=0;i<amount; i++)
+     {
+         cout << Line;
+     }
 
-string decode();
-
+ }
 int main()
 {
 
-string print;
 
-print = decode(1);
+print(5);
 
-cout << print;
+
 
 system("pause");
 return 0;
+
+
+
 }
-
-
-
-
-  
-void decode()
-{
-    
-   // x = rand() % 2 + 1;
-    string b;
-     if(a+=2)
-     {
-    b = "hello"; 
-     }
-     else if(a==2)
-     {
-         b = "fuck off";
-     }
-
-
-    cout << 
-
-    return b;
-}
-
-
+/*
+    for (int i = 0; i < SIZE; i ++) {
+        for (int u = 0; u < BLOCK; u ++) {
+            for (int j = 0; j < SIZE; j ++) {
+                int c = (i + j) & 1;
+                for (int k = 0; k < BLOCK; k ++) {
+                    if (c == 1) {
+                        cout << BLACK;
+                    } else {
+                        cout << WHITE;
+                    }
+                }
+            }
+            cout << endl;
+        }
+    }
+    return 0;
+*/
