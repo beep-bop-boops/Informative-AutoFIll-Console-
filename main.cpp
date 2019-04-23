@@ -1,4 +1,4 @@
-//in cmd input "chcp 437"
+//in cmd input "chcp 437"  // https://en.wikipedia.org/wiki/Code_page_437
 
 #include <iostream>
 #include <string>
@@ -8,6 +8,8 @@
 #include <cstring>
 #include <time.h>
 #include <fstream>
+#include <ctime>
+
 #define _WIN32_WINNT 0 * 0502
 using namespace std;
 
@@ -29,15 +31,19 @@ ofstream file;
 
 bool debug = false;
 
-string cP0 =  " ";                      //0  ─
-const char cP1 = 196;                   //1  ─
-const char cP2 = 195;                   //2  ├
-const char cP3 = 218;                   //3  ┌
-const char cP4 = 191;                   //4  ┐
-const char cP5 = 192;                   //5  └
-const char cP6 = 217;                   //6  ┘
-const char cP7 = 175;                   //7  »
-
+string cP0 = " ";     //0  space
+const char cP1 = 196; //1  ─
+const char cP2 = 195; //2  ├
+const char cP3 = 218; //3  ┌
+const char cP4 = 191; //4  ┐
+const char cP5 = 192; //5  └
+const char cP6 = 217; //6  ┘
+const char cP7 = 175; //7  »
+const char cP8 = 179; //8  |
+const char cP9 = 242; //9  _
+const char cP10 = 47; //10  /
+const char cP11 = 92; //11  \/
+const char cP12 = 92; //12  \/
 
 void printdir();
 void initializeDictionary();
@@ -55,73 +61,474 @@ void randcolour();
 void remove_scrollbar();
 void fillcontent();
 
-
-
 void print(int id, int amount)
 {
 
-for(int i = 0; i<amount; i++)
-{
-    if(id == 0)
+    for (int i = 0; i < amount; i++)
     {
-        cout << cP0;
-    }
-     if(id == 1)
-    {
-        cout << cP1;
-    }
-     if(id == 2)
-    {
-        cout << cP2;
-    }
-     if(id == 3)
-    {
-        cout << cP4;
-    }
-     if(id == 5)
-    {
-        cout << cP5;
-    }
-     if(id == 6)
-    {
-        cout << cP6;
-    }
-     if(id == 7)
-    {
-        cout << cP7;
+
+        switch (id)
+        {
+        case 0:
+            cout << cP0;
+            break;
+        case 1:
+            cout << cP1;
+            break;
+        case 2:
+            cout << cP2;
+            break;
+        case 3:
+            cout << cP3;
+            break;
+        case 4:
+            cout << cP4;
+            break;
+        case 5:
+            cout << cP5;
+            break;
+        case 6:
+            cout << cP6;
+            break;
+        case 7:
+            cout << cP7;
+            break;
+        case 8:
+            cout << cP8;
+            break;
+        case 9:
+            cout << cP9;
+            break;
+        case 10:
+            cout << cP10;
+            break;
+        case 11:
+            cout << cP11;
+            break;
+        }
     }
 }
 
-
-}
-
-int unEnCr(int q, int w, int e, int r, int t)
+int EnCr(int q, int w, int e, int r, int t)
 {
 
     string code;
     code = LibArray[q][w][e][r][t];
 
-    int len = code.length();
-    for (int g = 0; g < len; g++)
-    {
+    char c[code.size() + 1];
+    strcpy(c, code.c_str());
 
-        if (code.at(g) == 'w')
+    int encrId;
+    encrId = rand() % 4 + 1;
+
+    char te;
+
+    if (encrId == 1)
+    {
+        int print;
+        print = rand() % 10 + 1;
+        switch (print)
         {
-            file << "!";
+        case 0:
+            te = 178;
+            break;
+        case 1:
+            te = 167;         
+            break;
+        case 2:
+            te = 235;
+            break;
+        case 3:
+            te = 43;
+            break;
+        case 4:
+            te = 62;
+            break;
+        case 5:
+            te = 41;
+            break;
+        case 6:
+            te = 180;
+            break;
+        case 7:
+            te = 236;
+            break;
+        case 8:
+            te = 244;
+            break;
+        case 9:
+            te = 173;
+            break;
+        }
+        file << te;
+    }
+    if (encrId == 2)
+    {
+        int print;
+        print = rand() % 10 + 1;
+        switch (print)
+        {
+        case 0:
+            te = 223;
+            break;
+        case 1:
+            te = 237;
+            break;
+        case 2:
+            te = 243;
+            break;
+        case 3:
+            te = 180;
+            break;
+        case 4:
+            te = 124;
+            break;
+        case 5:
+            te = 138;
+            break;
+        case 6:
+            te = 178;
+            break;
+        case 7:
+            te = 91;
+            break;
+        case 8:
+            te = 184;
+            break;
+        case 9:
+            te = 299;
+            break;
+        }
+        file << te;
+    }
+    if (encrId == 3)
+    {
+        int print;
+        print = rand() % 10 + 1;
+        switch (print)
+        {
+        case 0:
+            te = 176;
+            break;
+        case 1:
+            te = 197;
+            break;
+        case 2:
+            te = 170;
+            break;
+        case 3:
+            te = 126;
+            break;
+        case 4:
+            te = 61;
+            break;
+        case 5:
+            te = 62;
+            break;
+        case 6:
+            te = 112;
+            break;
+        case 7:
+            te = 142;
+            break;
+        case 8:
+            te = 159;
+            break;
+        case 9:
+            te = 209;
+            break;
+        }
+        file << te;
+    }
+    if (encrId == 4)
+    {
+        int print;
+        print = rand() % 10 + 1;
+        switch (print)
+        {
+        case 0:
+            te = 206;
+
+            break;
+        case 1:
+            te = 210;
+            file << te;
+            break;
+        case 2:
+            te = 211;
+            file << te;
+            break;
+        case 3:
+            te = 201;
+            file << te;
+            break;
+        case 4:
+            te = 221;
+            file << te;
+            break;
+        case 5:
+            te = 241;
+            file << te;
+            break;
+        case 6:
+            te = 251;
+            file << te;
+            break;
+        case 7:
+            te = 169;
+            file << te;
+            break;
+        case 8:
+            te = 145;
+            file << te;
+            break;
+        case 9:
+            te = 129;
+            file << te;
+            break;
+        }
+    }
+
+    int encr;
+
+    for (int y = 0; y < code.size(); y++)
+    {
+        encr = y;
+
+        if (encrId == 0)
+        {
+            switch (y)
+            {
+            case 0:
+                c[y] = c[y] + 1;
+                break;
+            default:
+                c[y] = c[y] + 1;
+                break;
+            }
+        }
+        else if (encrId == 1)
+        {
+            switch (y)
+            {
+            case 0:
+                c[y] = c[y] + 1;
+                break;
+            default:
+                c[y] = c[y] + 1;
+                break;
+            }
+        }
+        else if (encrId == 2)
+        {
+            switch (y)
+            {
+            case 0:
+                c[y] = c[y] + 1;
+                break;
+            default:
+                c[y] = c[y] + 1;
+                break;
+            }
+        }
+        else if (encrId == 3)
+        {
+            switch (y)
+            {
+            case 0:
+                c[y] = c[y] + 1;
+                break;
+            default:
+                c[y] = c[y] + 1;
+                break;
+            }
         }
         else
         {
-            file << code.at(g);
+            switch (y)
+            {
+            case 0:
+                c[y] = c[y] + 1;
+                break;
+            default:
+                c[y] = c[y] + 1;
+                break;
+            }
         }
+
+        file << c[y];
     }
 
     file << ",";
     return 0;
 }
 
+void home()
+{
+    print(3, 1);
+    print(1, 40);
+    print(4, 1);
+    cout << endl;
+
+    print(8, 1);
+    print(0, 15);
+    print(9, 2);
+    print(0, 9);
+    print(3, 1);
+    print(1, 10);
+    print(0, 3);
+
+    print(8, 1);
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 7);
+    print(10, 1);
+    print(0, 2);
+    print(11, 1);
+    print(0, 8);
+    print(8, 1);
+    print(0, 13);
+    print(8, 1);
+
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 6); //-
+    print(10, 1);
+    print(0, 4); //+
+    print(11, 1);
+    print(0, 7); //-
+    print(8, 1);
+    print(0, 13);
+    print(8, 1);
+
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 5); //-
+    print(10, 1);
+    print(0, 6);
+    print(11, 1);
+    print(0, 6); //-
+    print(8, 1);
+    print(0, 13);
+    print(8, 1);
+
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 4); //-
+    print(10, 1);
+    print(1, 8);
+    print(11, 1);
+    print(0, 5); //-
+    print(8, 1);
+    print(0, 13);
+    print(8, 1);
+
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 3); //-
+    print(10, 1);
+    print(0, 10); //++
+    print(11, 1);
+    print(0, 4); //-
+    print(8, 1);
+    print(0, 13);
+    print(8, 1);
+
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 2); //-
+    print(10, 1);
+    print(0, 12); //++
+    print(11, 1);
+    print(0, 3); //-
+    print(8, 1);
+    print(0, 13);
+    print(8, 1);
+
+    cout << endl;
+
+    print(8, 1);
+    print(0, 6);
+    print(8, 1);
+    print(0, 1); //-
+    print(10, 1);
+    print(0, 14); //++
+    print(11, 1);
+    print(0, 2); //-
+    print(5, 1);
+    print(1, 10);
+    print(0, 3);
+    print(8, 1);
+    cout << endl;
+
+    print(5, 1);
+    print(1, 40);
+    print(6, 1);
+    cout << endl;
+
+    /////////////////////////
+    print(3, 1);
+    print(1, 40);
+    print(4, 1);
+    cout << endl;
+
+    print(8, 1);
+    print(0, 13);
+    cout << "Welcome To IAC";
+    print(0, 13);
+    print(8, 1);
+    cout << endl;
+
+    print(5, 1);
+    print(1, 40);
+    print(6, 1);
+    cout << endl;
+    ///////////////////////////////
+    print(3, 1);
+    print(1, 40);
+    print(4, 1);
+    cout << endl;
+
+    print(8, 1);
+    print(0, 5);
+    cout << "Enter help in any directory to";
+    print(0, 5);
+    print(8, 1);
+    cout << endl;
+
+    print(8, 1);
+    print(0, 5);
+    cout << "view information on how to use.";
+    print(0, 4);
+    print(8, 1);
+    cout << endl;
+
+    print(5, 1);
+    print(1, 40);
+    print(6, 1);
+    cout << endl;
+}
 int main()
 {
-
+    srand(time(0));
     for (int x = 0; x < LocAmount; x++)
     {
         usLoc[x] = 0;
@@ -129,23 +536,7 @@ int main()
     srand(time(NULL));
     initializeDictionary();
 
-    print(1,6);
-    cout << "|-----------------------------------" << endl;
-    cout << "|               _        _______   |" << endl;
-    cout << "|      |       / \\      |          |" << endl;
-    cout << "|      |      /   \\     |          |" << endl;
-    cout << "|      |     /     \\    |          |" << endl;
-    cout << "|      |    /_______\\   |          |" << endl;
-    cout << "|      |   /         \\  |          |" << endl;
-    cout << "|      |  /           \\ |_______   |" << endl;
-    cout << "|                                  |" << endl;
-    cout << "------------------------------------" << endl;
-    cout << "|          Welcome To IAC          |" << endl;
-    cout << "------------------------------------" << endl;
-    cout << "|   Enter help in any directory to |" << endl;
-    cout << "|   view information on how to use |" << endl;
-    cout << "|                 IAC              |" << endl;
-    cout << "------------------------------------" << endl;
+    home();
 
     // iac 3.40 = iac 3= Libarray size 40 = usloc size.  dd
     //finding location . can tpye loc3.4.5 at any time to go into locus[1]=3 usloc[2]=4...
@@ -183,6 +574,10 @@ void printdir()
 
     cmdfound = false;
     exitDir = false;
+
+    print(1, 42);
+
+    cout << endl;
 
     cout << "IAC:\\";
 
@@ -260,6 +655,9 @@ void TxtInputin()
     cmdfound = false;
 
     cin >> TxtInput;
+    print(1, 42);
+    cout << endl;
+
     //getline(cin, TxtInput);
 
     strStar = TxtInput.substr(0, 6);
@@ -535,23 +933,7 @@ void TxtInputin()
 
         system("CLS");
 
-        cout << "------------------------------------" << endl;
-        cout << "|               _        _______   |" << endl;
-        cout << "|      |       / \\      |          |" << endl;
-        cout << "|      |      /   \\     |          |" << endl;
-        cout << "|      |     /     \\    |          |" << endl;
-        cout << "|      |    /_______\\   |          |" << endl;
-        cout << "|      |   /         \\  |          |" << endl;
-        cout << "|      |  /           \\ |_______   |" << endl;
-        cout << "|                                  |" << endl;
-        cout << "------------------------------------" << endl;
-        cout << "|          Welcome To IAC          |" << endl;
-        cout << "------------------------------------" << endl;
-        cout << "|   Enter help in any directory to |" << endl;
-        cout << "|   view information on how to use |" << endl;
-        cout << "|                 IAC              |" << endl;
-        cout << "------------------------------------" << endl;
-
+        home();
         printdir();
     }
 
@@ -984,7 +1366,7 @@ void exportdata()
                         else
                         {
 
-                            unEnCr(t, r, e, w, q);
+                            EnCr(t, r, e, w, q);
 
                             //file << LibArray[t][r][e][w][q] << ",";
                             //file << LibArray[t][r][e][w][q] << t << r << e << w << q << ",";
@@ -1006,42 +1388,14 @@ void exportdata()
 void decode()
 {
 
-    // 5 chars of diffrent symbol. Each char can be a rand simb (0-12)
     int x;
+    char y;
 
-    int loopmax = rand() % 20 + 1;
-    string a[loopmax];
-
-    for (int y = 0; y < loopmax; y++)
+    for (int u = 0; u < rand() % (30 - 10) + 10; u++)
     {
-        x = rand() % 5 + 1;
-
-        if (x == 1)
-        {
-            a[y] = "£";
-        }
-        else if (x == 2)
-        {
-            a[y] = "&";
-        }
-        else if (x == 3)
-        {
-            a[y] = "(";
-        }
-        else if (x == 4)
-        {
-            a[y] = "#";
-        }
-        else if (x == 5)
-        {
-            a[y] = "(";
-        }
-    }
-
-    //   decodes = a;
-    for (int v = 0; v < loopmax; v++)
-    {
-        file << a[v];
+        x = rand() % (250 - 50) + 50;
+        y = x;
+        file << y;
     }
     file << ",";
 }
