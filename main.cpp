@@ -120,7 +120,7 @@ int EnCr(int q, int w, int e, int r, int t)
     strcpy(c, code.c_str());
 
     int encrId;
-    encrId = rand() % 4 + 1;
+    encrId = 1;// rand() % 4 + 1;
 
     char te;
 
@@ -134,7 +134,7 @@ int EnCr(int q, int w, int e, int r, int t)
             te = 178;
             break;
         case 1:
-            te = 167;         
+            te = 167;
             break;
         case 2:
             te = 235;
@@ -305,10 +305,10 @@ int EnCr(int q, int w, int e, int r, int t)
             switch (y)
             {
             case 0:
-                c[y] = c[y] + 1;
+                c[y] = c[y] ;//+ 1;
                 break;
             default:
-                c[y] = c[y] + 1;
+                c[y] = c[y] ;//+ 1;
                 break;
             }
         }
@@ -759,10 +759,10 @@ void TxtInputin()
         printdir();
     }
 
-    else if(TxtInput == "import")
+    else if (TxtInput == "import")
     {
         string filename;
-        cout << "Please Place csv file in same folder as IAC.exe folder" << endl ;
+        cout << "Please Place csv file in same folder as IAC.exe folder" << endl;
         cout << "Please enter csv file name (Case Sensative/No Extension):";
         cin >> filename;
         filename = filename + ".csv";
@@ -771,17 +771,17 @@ void TxtInputin()
 
         string importText;
         int perc = 0;
-        cout << "Please Wait till 1000 reached";
 
-    string decS;
+        string decS;
 
-
+        bool filefound;
+        //id1
         string che1;
         string che2;
         string che3;
         string che4;
         string che5;
-        string che6 ;
+        string che6;
         string che7;
         string che8;
         string che9;
@@ -807,76 +807,130 @@ void TxtInputin()
         che9 = che9c;
         che10 = che10c;
 
-        
         int importedAmount = 0;
-        
-        while(importfile.good())
+
+        while (importfile.good())
         {
 
- for (int q = 0; q < LocAmount; q++)
-    {
-        for (int w = 0; w < LocAmount; w++)
-        {
-            for (int e = 0; e < LocAmount; e++)
+            cout << "Are you sure you would like to delete all current directorys and replace with " << filename <<  "(Y/N):";
+            string conf;
+            cin >> conf;
+
+            while (true)
             {
-                for (int r = 0; r < LocAmount; r++)
+                if (conf == "y")
                 {
-                    for (int t = 0; t < LocAmount; t++)
+
+                    filefound = true;
+                    system("CLS");
+
+                    for (int q = 0; q < LocAmount; q++)
                     {
-                        
-
-                        getline(importfile, importText, ',');
-                        cout << perc << importText << endl;
-                      
-                        if(importText.substr(1,1) == che1 || importText.substr(1,1) == che2 || importText.substr(1,1) == che3 || importText.substr(1,1) == che4 || importText.substr(1,1) == che5 || importText.substr(1,1) == che6 || importText.substr(1,1) == che7 || importText.substr(1,1) == che8 || importText.substr(1,1) == che9 || importText.substr(1,1) == che10)
+                        for (int w = 0; w < LocAmount; w++)
                         {
-                            cout << "Sub found!" << endl;
-
-                            for(int g=0; g<importText.length(); g++)
+                            for (int e = 0; e < LocAmount; e++)
                             {
-                                decS = importText.substr(g,g);
-                                char decC[decS.size() + 1];
-                                strcpy(decC, decS.c_str());
+                                for (int r = 0; r < LocAmount; r++)
+                                {
+                                    for (int t = 0; t < LocAmount; t++)
+                                    {
 
-                                cout << "Old Char = " << decC[0]; 
+                                        getline(importfile, importText, ',');
+                                        //cout << perc << importText << endl;
 
-                               char u = decC[0];
+                                        if (importText.substr(1, 1) == che1 || importText.substr(1, 1) == che2 || importText.substr(1, 1) == che3 || importText.substr(1, 1) == che4 || importText.substr(1, 1) == che5 || importText.substr(1, 1) == che6 || importText.substr(1, 1) == che7 || importText.substr(1, 1) == che8 || importText.substr(1, 1) == che9 || importText.substr(1, 1) == che10)
+                                        {
+                                            cout << "Sub found!" << endl;
+                                            cout << "char 1 " << " = " << importText.substr(0, 0) << "  loc = " << perc << endl;
+                                            cout << importText << endl;
 
-                                LibArray[t][r][e][w][q].substr(g,g) = importText.substr(g,g);
-                                    
-                               
+                                            char unEnc[100];
+                                            
 
+                                            strcpy(unEnc, importText.c_str());
+                                                
+                                                cout << endl << "char un = " ;
+                                            for(int y=0; y<50; y++)
+                                            {
+                                                cout << "Char[" << y << "] = " << unEnc[y] << endl;
+                                            }
+
+                           
+ 
+                                            for (int g = 1; g < importText.length(); g++)
+                                            {   
+                                                cout << "id  = " << g ;
+                                                cout << "      Encripted char = " << importText.substr(g,g) << "    Unencripted char = ";
+                                                cout << unEnc[g] - 1 << endl;
+
+
+                                                //cout << importText.substr(g + 1,g +1);
+                                                //string b  =  b + importText.substr(g ,g);
+                                                
+                                                
+                
+                                                
+
+                                               // cout << "Old Char = " << decC[0];
+
+                                             
+
+                                               // LibArray[t][r][e][w][q].substr(g, g) = importText.substr(g, g);
+                                            }
+
+                                            system("pause");
+                                            
+                                            cout << endl << t << r << e << w << q << " = " << LibArray[t][r][e][w][q];
+                                            Sleep(1000);
+                                            importedAmount = importedAmount + 1;
+                                        }
+
+                                        // cout << "Location = " << t << r << e << w << q << " = " << LibArray[t][r][e][w][q] << endl ;
+
+                                        cout << perc << " / 9999 : complete" << endl;
+                                        perc = perc + 1;
+                                        cout << "Directory Imported : " << importedAmount;
+
+                                       // Sleep(500);
+
+                                        system("CLS");
+                                    }
+                                }
+                                file << endl;
                             }
-
-                            cout << "impoerted" << endl;
-                            importedAmount = importedAmount +1;
-
+                            file << endl;
                         }
-                        
-                        
-                       // cout << "Location = " << t << r << e << w << q << " = " << LibArray[t][r][e][w][q] << endl ;
-                        
-                        cout << perc << " / 9999 : complete" << endl;
-                        perc = perc + 1;
-                        cout << "Directory Imported : " << importedAmount;
-
-                        Sleep(9000);
-                        
-                        system("CLS");
-
+                        file << endl;
                     }
+                    file << endl;
+
+                    break;
                 }
-                file << endl;
+                else if (conf == "n")
+                {
+
+                    printdir();
+                    break;
+                    
+                }
+                else
+                {
+                    cout << "Input must be y or n." << endl;
+                    cout << "Are you sure you would like to delete all current directorys and replace with " << filename <<  "(Y/N):";
+                    cin >> conf;
+                }
             }
-            file << endl;
-        }
-        file << endl;
-    }
-    file << endl;
         }
 
+        if (filefound == false)
+        {
+            loadanimin();
+            SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            cout << "No File Found";
+            loadanimout();
+        }
 
-
+        printdir();
     }
     else if (TxtInput == "help")
     {
@@ -1472,7 +1526,7 @@ void exportdata()
                     {
                         if (LibArray[t][r][e][w][q].length() == 0)
                         {
-                            decode();
+                           // decode();
                             //file << decodes << "," ;
                         }
                         else

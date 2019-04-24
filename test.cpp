@@ -1,41 +1,78 @@
-//Simple C++ program to encrypt and decrypt a string
 
 #include <iostream>
 #include <string>
+#include <Windows.h>
+#include <cmath>
+#include <cstdlib>
 #include <cstring>
+#include <time.h>
+#include <fstream>
+#include <ctime>
+
+
 
 using namespace std;
 
 int main()
 {
-    char f = 145;
-    cout << f;
+
+    
+
+ofstream file;
+ifstream importfile;
 
 
-/*
-string txt;
+file.open("hello.csv");
 
-cout << "Input Message : " ;
-getline(cin, txt);
+char p = 0;
 
+cout << "p =" << p << endl;
 
-char c[txt.size() +1];
-strcpy(c, txt.c_str());
-
-for(int y=0;y<txt.size();y++)
+int y = 0;
+for(int u=0;u<20;u++)
 {
-    c[y] = c[y] + 5;
+    
+for(int t=0;t<20;t++)
+{
+    y = y +1;
 
+    file << "Id = " << y << " Symbol = " << p << ",";
+    p = p +1;
+    
 }
-txt = c;
+file << endl;
+}
 
-cout << "Encripted Message : " << c << endl;
+p = 178;
+cout << " =============" << p;
+
+Sleep(1000);
+importfile.open("hello.csv");
 
 
-*/
+string in;
+
+while(importfile.good())
+{
+    
+
+
+for(int t=0;t<200;t++)
+{
+    getline(importfile, in, ',');
+     cout << " -------   Id =  " << t << "    Symbol = " << in << "--------" << endl;
+    
+}
+
+
+     
+     
+}
+
+cout << in;
 
 system("pause");
-   return 0;
+return 0;
 }
 
 
