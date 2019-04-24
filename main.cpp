@@ -28,6 +28,7 @@ string filename;
 string password;
 
 ofstream file;
+ifstream importfile;
 
 bool debug = false;
 
@@ -252,41 +253,33 @@ int EnCr(int q, int w, int e, int r, int t)
             break;
         case 1:
             te = 210;
-            file << te;
             break;
         case 2:
             te = 211;
-            file << te;
             break;
         case 3:
             te = 201;
-            file << te;
             break;
         case 4:
             te = 221;
-            file << te;
             break;
         case 5:
             te = 241;
-            file << te;
             break;
         case 6:
             te = 251;
-            file << te;
             break;
         case 7:
             te = 169;
-            file << te;
             break;
         case 8:
             te = 145;
-            file << te;
             break;
         case 9:
             te = 129;
-            file << te;
             break;
         }
+        file << te;
     }
 
     int encr;
@@ -766,6 +759,125 @@ void TxtInputin()
         printdir();
     }
 
+    else if(TxtInput == "import")
+    {
+        string filename;
+        cout << "Please Place csv file in same folder as IAC.exe folder" << endl ;
+        cout << "Please enter csv file name (Case Sensative/No Extension):";
+        cin >> filename;
+        filename = filename + ".csv";
+
+        importfile.open(filename);
+
+        string importText;
+        int perc = 0;
+        cout << "Please Wait till 1000 reached";
+
+    string decS;
+
+
+        string che1;
+        string che2;
+        string che3;
+        string che4;
+        string che5;
+        string che6 ;
+        string che7;
+        string che8;
+        string che9;
+        string che10;
+        char che1c = 178;
+        char che2c = 178;
+        char che3c = 178;
+        char che4c = 178;
+        char che5c = 178;
+        char che6c = 178;
+        char che7c = 178;
+        char che8c = 178;
+        char che9c = 178;
+        char che10c = 178;
+        che1 = che1c;
+        che2 = che2c;
+        che3 = che3c;
+        che4 = che4c;
+        che5 = che5c;
+        che6 = che6c;
+        che7 = che7c;
+        che8 = che8c;
+        che9 = che9c;
+        che10 = che10c;
+
+        
+        int importedAmount = 0;
+        
+        while(importfile.good())
+        {
+
+ for (int q = 0; q < LocAmount; q++)
+    {
+        for (int w = 0; w < LocAmount; w++)
+        {
+            for (int e = 0; e < LocAmount; e++)
+            {
+                for (int r = 0; r < LocAmount; r++)
+                {
+                    for (int t = 0; t < LocAmount; t++)
+                    {
+                        
+
+                        getline(importfile, importText, ',');
+                        cout << perc << importText << endl;
+                      
+                        if(importText.substr(1,1) == che1 || importText.substr(1,1) == che2 || importText.substr(1,1) == che3 || importText.substr(1,1) == che4 || importText.substr(1,1) == che5 || importText.substr(1,1) == che6 || importText.substr(1,1) == che7 || importText.substr(1,1) == che8 || importText.substr(1,1) == che9 || importText.substr(1,1) == che10)
+                        {
+                            cout << "Sub found!" << endl;
+
+                            for(int g=0; g<importText.length(); g++)
+                            {
+                                decS = importText.substr(g,g);
+                                char decC[decS.size() + 1];
+                                strcpy(decC, decS.c_str());
+
+                                cout << "Old Char = " << decC[0]; 
+
+                               char u = decC[0];
+
+                                LibArray[t][r][e][w][q].substr(g,g) = importText.substr(g,g);
+                                    
+                               
+
+                            }
+
+                            cout << "impoerted" << endl;
+                            importedAmount = importedAmount +1;
+
+                        }
+                        
+                        
+                       // cout << "Location = " << t << r << e << w << q << " = " << LibArray[t][r][e][w][q] << endl ;
+                        
+                        cout << perc << " / 9999 : complete" << endl;
+                        perc = perc + 1;
+                        cout << "Directory Imported : " << importedAmount;
+
+                        Sleep(9000);
+                        
+                        system("CLS");
+
+                    }
+                }
+                file << endl;
+            }
+            file << endl;
+        }
+        file << endl;
+    }
+    file << endl;
+        }
+
+
+
+    }
     else if (TxtInput == "help")
     {
         loadanimin();
