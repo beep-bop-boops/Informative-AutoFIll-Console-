@@ -120,7 +120,7 @@ int EnCr(int q, int w, int e, int r, int t)
     strcpy(c, code.c_str());
 
     int encrId;
-    encrId = 1;// rand() % 4 + 1;
+    encrId = 1; // rand() % 4 + 1;
 
     char te;
 
@@ -305,10 +305,10 @@ int EnCr(int q, int w, int e, int r, int t)
             switch (y)
             {
             case 0:
-                c[y] = c[y] ;//+ 1;
+                c[y] = c[y]; //+ 1;
                 break;
             default:
-                c[y] = c[y] ;//+ 1;
+                c[y] = c[y]; //+ 1;
                 break;
             }
         }
@@ -809,35 +809,41 @@ void TxtInputin()
 
         int importedAmount = 0;
 
+        bool brek = false;
+
         while (importfile.good())
         {
 
-            cout << "Are you sure you would like to delete all current directorys and replace with " << filename <<  "(Y/N):";
+            if (brek == true)
+            {
+                printdir();
+            }
+
+            cout << "Are you sure you would like to delete all current directorys and replace with " << filename << "(Y/N):";
             string conf;
             cin >> conf;
 
-            while (true)
+            if (conf == "y")
             {
-                if (conf == "y")
+
+                filefound = true;
+                system("CLS");
+
+                for (int q = 0; q < LocAmount; q++)
                 {
-
-                    filefound = true;
-                    system("CLS");
-
-                    for (int q = 0; q < LocAmount; q++)
+                    for (int w = 0; w < LocAmount; w++)
                     {
-                        for (int w = 0; w < LocAmount; w++)
+                        for (int e = 0; e < LocAmount; e++)
                         {
-                            for (int e = 0; e < LocAmount; e++)
+                            for (int r = 0; r < LocAmount; r++)
                             {
-                                for (int r = 0; r < LocAmount; r++)
+                                for (int t = 0; t < LocAmount; t++)
                                 {
-                                    for (int t = 0; t < LocAmount; t++)
-                                    {
 
-                                        getline(importfile, importText, ',');
-                                        //cout << perc << importText << endl;
+                                    getline(importfile, importText, ',');
+                                    //cout << perc << importText << endl;
 
+                                    /*
                                         if (importText.substr(1, 1) == che1 || importText.substr(1, 1) == che2 || importText.substr(1, 1) == che3 || importText.substr(1, 1) == che4 || importText.substr(1, 1) == che5 || importText.substr(1, 1) == che6 || importText.substr(1, 1) == che7 || importText.substr(1, 1) == che8 || importText.substr(1, 1) == che9 || importText.substr(1, 1) == che10)
                                         {
                                             cout << "Sub found!" << endl;
@@ -878,47 +884,49 @@ void TxtInputin()
                                                // LibArray[t][r][e][w][q].substr(g, g) = importText.substr(g, g);
                                             }
 
-                                            system("pause");
+                                           // system("pause");
                                             
-                                            cout << endl << t << r << e << w << q << " = " << LibArray[t][r][e][w][q];
+                                            //cout << endl << t << r << e << w << q << " = " << LibArray[t][r][e][w][q];
                                             Sleep(1000);
                                             importedAmount = importedAmount + 1;
                                         }
+                                        */
 
-                                        // cout << "Location = " << t << r << e << w << q << " = " << LibArray[t][r][e][w][q] << endl ;
+                                    // cout << "Location = " << t << r << e << w << q << " = " << LibArray[t][r][e][w][q] << endl ;
 
-                                        cout << perc << " / 9999 : complete" << endl;
-                                        perc = perc + 1;
-                                        cout << "Directory Imported : " << importedAmount;
+                                    cout << perc << " / 100000 : complete";
+                                    cout << t << r << e << w << q << " = " << importText << "   //   ";
+                                    LibArray[t][r][e][w][q] = importText;
 
-                                       // Sleep(500);
+                                    perc = perc + 1;
+                                    // cout << "Directory Imported : " << importedAmount;
 
-                                        system("CLS");
-                                    }
+                                    // Sleep(500);
+
+                                    //  system("CLS");
                                 }
-                                file << endl;
                             }
                             file << endl;
                         }
                         file << endl;
                     }
                     file << endl;
+                }
+                file << endl;
+                brek = true;
+                //break;
+            }
+            else if (conf == "n")
+            {
 
-                    break;
-                }
-                else if (conf == "n")
-                {
-
-                    printdir();
-                    break;
-                    
-                }
-                else
-                {
-                    cout << "Input must be y or n." << endl;
-                    cout << "Are you sure you would like to delete all current directorys and replace with " << filename <<  "(Y/N):";
-                    cin >> conf;
-                }
+                printdir();
+                break;
+            }
+            else
+            {
+                cout << "Input must be y or n." << endl;
+                cout << "Are you sure you would like to delete all current directorys and replace with " << filename << "(Y/N):";
+                cin >> conf;
             }
         }
 
@@ -929,9 +937,9 @@ void TxtInputin()
             cout << "No File Found";
             loadanimout();
         }
-
         printdir();
     }
+
     else if (TxtInput == "help")
     {
         loadanimin();
@@ -1526,7 +1534,7 @@ void exportdata()
                     {
                         if (LibArray[t][r][e][w][q].length() == 0)
                         {
-                           // decode();
+                            decode();
                             //file << decodes << "," ;
                         }
                         else
