@@ -554,15 +554,19 @@ void printdir()
 
     if (debug == true)
     {
-        cout << usLoc[1] << endl;
-        cout << usLoc[2] << endl;
-        cout << usLoc[3] << endl;
-        cout << usLoc[4] << endl;
+            cout << "Location " ;
+            for(int y=1;y<arrayIndexAmount+1;y++)
+            {
+                cout << "-" << usLoc[y];
+            }
+            cout << endl;
+            cout << "Bool " ;
+            for(int y=1;y<arrayIndexAmount+1;y++)
+            {
+                cout << "-" << usLocB[y];
+            }
+            cout << endl;
 
-        cout << usLocB[1] << endl;
-        cout << usLocB[2] << endl;
-        cout << usLocB[3] << endl;
-        cout << usLocB[4] << endl;
     }
 
     cmdfound = false;
@@ -642,6 +646,10 @@ void printdir()
 
     TxtInputin();
 }
+
+
+
+
 void TxtInputin()
 {
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -650,10 +658,11 @@ void TxtInputin()
     cin >> TxtInput;
     print(1, 42);
     cout << endl;
+    //cout << TxtInput.substr(1, TxtInput.length());
 
     //getline(cin, TxtInput);
 
-    strStar = TxtInput.substr(0, 6);
+    strStar = TxtInput.substr(0, 1);
 
     if (TxtInput == "exit")
     {
@@ -707,9 +716,16 @@ void TxtInputin()
         printdir();
     }
 
-    else if (TxtInput == "d")
+    else if (TxtInput == ".dbug")
     {
+        if(debug == false)
+        {
         debug = true;
+        }
+        else
+        {
+            debug = true;
+        }
         printdir();
     }
 
@@ -719,7 +735,7 @@ void TxtInputin()
         string yn;
         cout << "Please enter file name : ";
         cin >> filename;
-        filename = filename + ".csv";
+        filename = filename + ".txt";
 
         cout << "Would you like to set a password for the file (Y/N):";
         cin >> yn;
@@ -765,7 +781,7 @@ void TxtInputin()
         cout << "Please Place csv file in same folder as IAC.exe folder" << endl;
         cout << "Please enter csv file name (Case Sensative/No Extension):";
         cin >> filename;
-        filename = filename + ".csv";
+        filename = filename + ".txt";
 
         importfile.open(filename);
 
@@ -774,7 +790,9 @@ void TxtInputin()
 
         string decS;
 
+        
         bool filefound;
+        /*
         //id1
         string che1;
         string che2;
@@ -808,6 +826,7 @@ void TxtInputin()
         che10 = che10c;
 
         int importedAmount = 0;
+        */
 
         bool brek = false;
 
@@ -894,11 +913,19 @@ void TxtInputin()
 
                                     // cout << "Location = " << t << r << e << w << q << " = " << LibArray[t][r][e][w][q] << endl ;
 
-                                    cout << perc << " / 100000 : complete";
-                                    cout << t << r << e << w << q << " = " << importText << "   //   ";
-                                    LibArray[t][r][e][w][q] = importText;
+                                    cout << perc << "-----";
+                                    //cout << t << r << e << w << q << " = " << importText << "   //   ";
 
+                                    if(importText == "EPT")
+                                    {
+                                    LibArray[t][r][e][w][q] = "";
+                                    }
+                                    else
+                                    {
+                                    LibArray[t][r][e][w][q] = importText;
+                                    }
                                     perc = perc + 1;
+                                    
                                     // cout << "Directory Imported : " << importedAmount;
 
                                     // Sleep(500);
@@ -906,13 +933,13 @@ void TxtInputin()
                                     //  system("CLS");
                                 }
                             }
-                            file << endl;
+                           
                         }
-                        file << endl;
+                        
                     }
-                    file << endl;
+                    
                 }
-                file << endl;
+                
                 brek = true;
                 //break;
             }
@@ -937,6 +964,7 @@ void TxtInputin()
             cout << "No File Found";
             loadanimout();
         }
+        system("CLS");
         printdir();
     }
 
@@ -955,9 +983,9 @@ void TxtInputin()
         cout << "------------------------------------" << endl;
         cout << "|         Create and delete         |" << endl;
         cout << "------------------------------------" << endl;
-        cout << "| +subd\\Name --  Will create       |" << endl;
+        cout << "| +\\Name --  Will create       |" << endl;
         cout << "|         a new subdirectory        |" << endl;
-        cout << "| -subd\\Name --  Will delete       |" << endl;
+        cout << "| -\\Name --  Will delete       |" << endl;
         cout << "|         the subdirectory and any  |" << endl;
         cout << "|         subdirectory within the   |" << endl;
         cout << "|         folder                    |" << endl;
@@ -985,6 +1013,8 @@ void TxtInputin()
         cout << "|                Tools              |" << endl;
         cout << "------------------------------------" << endl;
         cout << "| clear -- will clear screen        |" << endl;
+        cout << "| .dbug -- will enter/exit debug    |" << endl;
+        cout << "|          mode                     |" << endl;
         cout << "| 5563  -- will delete all          |" << endl;
         cout << "|          directorys and restart   |" << endl;
         cout << "|          the exe !!               |" << endl;
@@ -992,7 +1022,7 @@ void TxtInputin()
         printdir();
     }
 
-    else if (strStar == "+subd\\")
+    else if (strStar == "+")
     {
 
         //  cout << TxtInput.substr(TxtInput.length() - 3;
@@ -1013,7 +1043,7 @@ void TxtInputin()
                         if (ser.length() == 0)
                         {
 
-                            start = 6;
+                            start = 1;
                             end = TxtInput.length();
                             LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = TxtInput.substr(start, end) + " ";
                             fillcontent();
@@ -1050,7 +1080,7 @@ void TxtInputin()
         }
     }
 
-    else if (strStar == "-subd\\")
+    else if (strStar == "-")
     {
         int save[5];
         for (int h = 0; h < LocAmount; h++)
@@ -1061,18 +1091,19 @@ void TxtInputin()
 
         for (int p = 1; p < 5; p++)
         {
-            if (usLocB[p] == false)
-            {
-                int r, hold;
+          //  if (usLocB[p] == false)
+          //  {
+                int  hold;
 
                 //loc amount
-                for (r = 1; r < LocAmount; r++)
+
+                for (int r = 1; r < LocAmount; r++)
                 {
                     usLoc[p] = r;
 
-                    if (LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] == TxtInput.substr(6, TxtInput.length()))
+                    if (LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] == TxtInput.substr(1, TxtInput.length()))
                     {
-
+                        cout << "done bitch!";
                         LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = "";
 
                         r = LocAmount + 1;
@@ -1080,11 +1111,8 @@ void TxtInputin()
                         found = true;
                         break;
                     }
-                    else
-                    {
-                    }
                 }
-            }
+           // }
         }
         if (found == false)
         {
@@ -1299,6 +1327,7 @@ void TxtInputin()
 
 void initializeDictionary()
 {
+    /*
     //IAC:/
     LibArray[0][0][0][0][0] = "";
     LibArray[1][0][0][0][0] = "windows.fo";
@@ -1329,6 +1358,7 @@ void initializeDictionary()
     LibArray[2][3][0][0][0] = "luserstuff.fo";
 
     LibArray[2][1][1][0][0] = "bruteForce.in";
+    */
 }
 
 void Subidirectory()
@@ -1504,15 +1534,17 @@ void remove_scrollbar()
 
 void fillcontent()
 {
-    string cont;
+   
 
     if (TxtInput.substr(TxtInput.length() - 3) == ".in")
     {
-        cout << endl
-             << "Please Fill in content of .in File :" << endl;
-        //getline(cin, cont);
-        cin >> cont;
-        LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] + cont;
+        cout << "Please Fill in content of directory :" << endl;
+        cout <<  "Content info will end at first '£' symbol" << endl;
+        string coot;
+getline(cin, coot, '<');
+
+        
+        LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] = LibArray[usLoc[1]][usLoc[2]][usLoc[3]][usLoc[4]][usLoc[5]] + coot;
     }
     else if (TxtInput.substr(TxtInput.length() - 3) == ".tu")
     {
@@ -1534,15 +1566,17 @@ void exportdata()
                     {
                         if (LibArray[t][r][e][w][q].length() == 0)
                         {
-                            decode();
+                          //  decode();
                             //file << decodes << "," ;
+                            file << "EPT";
+                            file << ",";
                         }
                         else
                         {
 
-                            EnCr(t, r, e, w, q);
+                            //EnCr(t, r, e, w, q);
 
-                            //file << LibArray[t][r][e][w][q] << ",";
+                            file << LibArray[t][r][e][w][q] << ",";
                             //file << LibArray[t][r][e][w][q] << t << r << e << w << q << ",";
                         }
                     }
